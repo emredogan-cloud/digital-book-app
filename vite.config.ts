@@ -14,6 +14,8 @@ import { defineConfig } from 'vite';
  */
 export default defineConfig({
   root: 'src-shell',
+  // .env lives at the repo root, one level up from the Vite root.
+  envDir: '..',
   build: {
     outDir: '../www/shell',
     emptyOutDir: false,

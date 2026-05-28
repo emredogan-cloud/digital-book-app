@@ -1,10 +1,12 @@
-// Living Library — shell entry (SUB-PR 1.2).
-// Installs `window.LL` and renders the bookshelf into `#ll-root`.
+// Living Library — shell entry (SUB-PR 1.3).
+// Inits Sentry (no-op if VITE_SENTRY_DSN unset), installs window.LL, renders
+// the bookshelf into #ll-root.
 
+import { initSentry } from './sentry.js';
 import { installBridge } from './ll-bridge.js';
 import { renderShelf } from './shelf.js';
 
-export const SHELL_BUILD = '1.2.0-bookshelf' as const;
+export const SHELL_BUILD = '1.3.0-signed' as const;
 
 declare global {
   interface Window {
@@ -12,6 +14,7 @@ declare global {
   }
 }
 
+initSentry();
 const bridge = installBridge();
 window.__LL_SHELL__ = { build: SHELL_BUILD };
 

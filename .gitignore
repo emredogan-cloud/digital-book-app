@@ -18,6 +18,8 @@ www/shell/
 *.aab
 *.keystore
 *.jks
+# Gradle signing credentials (mirror of .env) — NEVER commit
+keystore.properties
 
 # ── Environment / secrets ──
 .env
