@@ -1,12 +1,18 @@
-// Living Library — shell entry (SUB-PR 1.3).
-// Inits Sentry (no-op if VITE_SENTRY_DSN unset), installs window.LL, renders
-// the bookshelf into #ll-root.
+// Living Library — shell entry (SUB-PR 2.1).
+//
+// Boot order:
+//   1) initSentry             (no-op when VITE_SENTRY_DSN is empty)
+//   2) installBridge          (sets window.LL with final signatures + emit fan-out)
+//   3) attachNativeListeners  (haptics + per-book StatusBar via onLLEmit)
+//   4) applyShelfTheme        (StatusBar tint for the bookshelf — no-op in browser)
+//   5) DOMContentLoaded       → renderShelf(#ll-root) → emit('shelf_view')
 
 import { initSentry } from './sentry.js';
 import { installBridge } from './ll-bridge.js';
 import { renderShelf } from './shelf.js';
+import { applyShelfTheme, attachNativeListeners } from './native.js';
 
-export const SHELL_BUILD = '1.3.0-signed' as const;
+export const SHELL_BUILD = '2.1.0-native-feel' as const;
 
 declare global {
   interface Window {
@@ -16,6 +22,8 @@ declare global {
 
 initSentry();
 const bridge = installBridge();
+attachNativeListeners();
+void applyShelfTheme();
 window.__LL_SHELL__ = { build: SHELL_BUILD };
 
 function boot(): void {
