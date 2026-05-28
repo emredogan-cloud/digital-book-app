@@ -116,6 +116,7 @@
             if (!Storage.getFirstSeen()) {
                 showHintBriefly();
                 Storage.setFirstSeen(true);
+                window.LL?.emit('cover_gate_opened', { bookId: 'mythologica' });
             }
         });
     }
@@ -126,6 +127,7 @@
 
     function handleSpreadChange(spreadIdx) {
         Storage.setProgress(spreadIdx);
+        window.LL?.emit('page_turn', { bookId: 'mythologica', spread: spreadIdx });
 
         const total = engine.getSpreadCount();
         dom.pageCurrent.textContent = engine.getCurrentFolioRange();
@@ -190,6 +192,7 @@
             const idx = engine.getCurrentSpread();
             const label = engine.getCurrentChapterLabel();
             const added = Storage.toggleBookmark(idx, label);
+            if (added) window.LL?.emit('bookmark_add', { bookId: 'mythologica', spread: idx });
             handleSpreadChange(idx);
             renderBookmarksDrawer();
             toast(added ? "Folio marked" : "Mark removed");
@@ -201,6 +204,7 @@
             const next = THEMES[(THEMES.indexOf(cur) + 1) % THEMES.length];
             applyTheme(next);
             Storage.setTheme(next);
+            window.LL?.emit('theme_change', { bookId: 'mythologica', theme: next });
             toast("Theme: " + next);
         });
 
@@ -210,6 +214,7 @@
             const next = (cur + 1) % TYPE_STEPS.length;
             applyTypeStep(next);
             Storage.setTypeStep(next);
+            window.LL?.emit('font_scale_change', { bookId: 'mythologica', typeStep: next });
             toast("Type size: " + (next + 1) + "/" + TYPE_STEPS.length);
             await rebuildEngineAroundCurrentChapter();
         });

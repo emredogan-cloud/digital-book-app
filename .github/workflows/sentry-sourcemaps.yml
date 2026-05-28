@@ -1,0 +1,56 @@
+name: Sentry source maps
+
+# Uploads the built shell.js + shell.js.map to Sentry on every push to main, so
+# Sentry can de-minify stack traces. Skipped silently when SENTRY_PROJECT isn't
+# configured (so the workflow doesn't fail until you set things up).
+#
+# Required GitHub secrets (Settings → Secrets and variables → Actions):
+#   - SENTRY_AUTH_TOKEN   (org/project token from Sentry → User auth tokens)
+# Required GitHub Actions variables (Settings → Secrets and variables → Variables):
+#   - SENTRY_ORG          (e.g. emredogan-cloud)
+#   - SENTRY_PROJECT      (e.g. living-library)
+#
+# Once those exist, every main-branch push that touches shell sources triggers a
+# release in Sentry tagged with the commit SHA, with source maps attached.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src-shell/**'
+      - 'www/index.html'
+      - 'vite.config.ts'
+      - 'tsconfig.json'
+      - 'package.json'
+      - 'package-lock.json'
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    if: ${{ vars.SENTRY_PROJECT != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Create Sentry release + upload source maps
+        uses: getsentry/action-release@v3
+        with:
+          sourcemaps: 'www/shell'
+          url_prefix: '~/shell'
+          set_commits: auto
+          environment: internal
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}

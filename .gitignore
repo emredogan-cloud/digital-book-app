@@ -20,6 +20,9 @@ www/shell/
 *.jks
 # Gradle signing credentials (mirror of .env) — NEVER commit
 keystore.properties
+# Firebase config — has project secrets; provide it locally for Crashlytics builds
+google-services.json
+GoogleService-Info.plist
 
 # ── Environment / secrets ──
 .env
