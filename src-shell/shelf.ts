@@ -1,12 +1,16 @@
-// Bookshelf UI renderer (SUB-PR 1.2).
+// Bookshelf UI renderer (SUB-PR 2.2 — adds progress badge + streak surface).
 //
-// Builds the masthead, optional "Continue reading" hero, the cover grid, and
-// the footer — purely from the BOOKS metadata. No book engine code is touched.
-// CSS lives inline in www/index.html (zero external deps); this module just
-// owns the DOM.
+// Renders the masthead, optional "Continue reading" hero, the cover grid, and the footer
+// purely from the BOOKS metadata + (new in 2.2) per-book progress read from the engine's
+// own localStorage and the streak counter read from the StorageAdapter.
+//
+// No engine code touched (Motor LOCK): progress is read via the engine's known
+// localStorage prefix (synchronous, cheap). Streak fetch is async, fire-and-forget.
 
 import { BOOKS, type BookMeta } from './books.js';
 import { getLastOpenedSlug, type LLBridge } from './ll-bridge.js';
+import { getStorage, readEngineProgress } from './storage/index.js';
+import { getStreak } from './streak.js';
 
 export function renderShelf(root: HTMLElement, bridge: LLBridge): void {
   root.setAttribute('aria-busy', 'false');
@@ -34,12 +38,15 @@ export function renderShelf(root: HTMLElement, bridge: LLBridge): void {
   root.appendChild(buildFooter());
 
   revealCards(grid);
+
+  // Streak surface — async, non-blocking; silently no-ops on failure.
+  void surfaceStreak(root);
 }
 
 function buildMasthead(): HTMLElement {
   const el = document.createElement('header');
   el.innerHTML = `
-    <p class="kicker">Living Library</p>
+    <p class="kicker">Living Library <span class="streak" data-streak hidden></span></p>
     <h1 class="wordmark">Yaşayan Kütüphane</h1>
     <p class="lede">Atmosferik, el işçiliğiyle tasarlanmış kitapların çevrimdışı koleksiyonu. Başlamak için bir kitap seçin.</p>
     <div class="rule"></div>
@@ -72,7 +79,10 @@ function buildHero(book: BookMeta, bridge: LLBridge): HTMLElement {
 
   const sub = document.createElement('p');
   sub.className = 'hero-sub';
-  sub.textContent = book.subtitle;
+  const progress = readEngineProgress(book.localStoragePrefix);
+  sub.textContent = progress.spreadIndex
+    ? `${book.subtitle} · ${book.lang === 'en' ? 'page' : 'sayfa'} ${progress.spreadIndex}`
+    : book.subtitle;
 
   const btn = document.createElement('button');
   btn.className = 'hero-go';
@@ -95,7 +105,7 @@ function buildCard(book: BookMeta, index: number, bridge: LLBridge): HTMLAnchorE
 
   const img = document.createElement('img');
   img.className = 'cover';
-  img.alt = ''; // decorative — title text below provides the label
+  img.alt = '';
   img.loading = index < 3 ? 'eager' : 'lazy';
   img.decoding = 'async';
   img.src = `books/${book.slug}/${book.cover}`;
@@ -108,6 +118,17 @@ function buildCard(book: BookMeta, index: number, bridge: LLBridge): HTMLAnchorE
 
   const meta = document.createElement('div');
   meta.className = 'book-meta';
+
+  // Per-book progress badge (NEW in SUB-PR 2.2). Shown only when the engine has
+  // recorded a non-zero spread index. Read synchronously from localStorage.
+  const progress = readEngineProgress(book.localStoragePrefix);
+  if (progress.spreadIndex !== null) {
+    const badge = document.createElement('span');
+    badge.className = 'progress-badge';
+    badge.textContent = `${book.lang === 'en' ? 'page' : 'sayfa'} ${progress.spreadIndex}`;
+    badge.title = book.lang === 'en' ? 'You have saved progress' : 'Kayıtlı ilerlemeniz var';
+    meta.appendChild(badge);
+  }
 
   const idx = document.createElement('span');
   idx.className = 'idx';
@@ -159,5 +180,21 @@ function revealCards(grid: HTMLElement): void {
     cards.forEach((c, i) => window.setTimeout(() => c.classList.add('reveal'), 55 * i));
   } else {
     cards.forEach((c) => c.classList.add('reveal'));
+  }
+}
+
+async function surfaceStreak(root: HTMLElement): Promise<void> {
+  try {
+    const adapter = await getStorage();
+    const streak = await getStreak(adapter);
+    if (streak.current <= 0) return;
+    const el = root.querySelector<HTMLElement>('[data-streak]');
+    if (!el) return;
+    el.textContent = `🔥 ${streak.current} gün`;
+    el.title = `En uzun: ${streak.longest} gün`;
+    el.hidden = false;
+    el.style.marginLeft = '0.6em';
+  } catch {
+    /* non-critical */
   }
 }

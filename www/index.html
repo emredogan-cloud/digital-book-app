@@ -88,6 +88,11 @@
   .book:hover .arrow, .book:focus-visible .arrow{transform:translateX(4px);}
   .book:focus-visible{box-shadow:0 0 0 2px var(--accent), 0 14px 36px -20px #000;}
 
+  /* progress badge (SUB-PR 2.2) — small accent pill shown when the book has saved progress */
+  .book-meta .progress-badge{display:inline-block; font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); background:rgba(255,255,255,.08); padding:.18rem .55rem; border-radius:999px; margin-bottom:.4rem; align-self:flex-start;}
+  /* streak badge in the kicker (SUB-PR 2.2) */
+  .kicker .streak{font-size:.7rem; letter-spacing:.14em; text-transform:none; opacity:.85; color:var(--ink-soft);}
+
   /* footer */
   footer{margin-top:clamp(2.4rem,6vw,3.4rem); padding-top:1.4rem; border-top:1px solid var(--line); color:var(--ink-mute); font-size:.78rem; display:flex; justify-content:space-between; gap:1rem 1.5rem; flex-wrap:wrap;}
   footer code{font-family:var(--mono); color:var(--ink-soft);}

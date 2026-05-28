@@ -1,6 +1,7 @@
 // Per-book metadata table — the shell's single source of truth.
-// Drives the shelf renderer (1.2) and, in later phases, native plugins
-// (Capacitor StatusBar tinting / SplashScreen, Phase 2).
+// Drives the shelf renderer (1.2), native plugins (2.1), and the localStorage→SQLite
+// migration (2.2). The `localStoragePrefix` was discovered by READ-ONLY inspection of
+// each book's scripts/storage.js — Motor LOCK preserved (engine code untouched).
 
 export interface BookMeta {
   /** URL-safe slug; matches the `www/books/<slug>/` directory name. */
@@ -22,6 +23,14 @@ export interface BookMeta {
   readonly cta: string;
   /** Cover image path relative to `/books/<slug>/`. The book engine ships it. */
   readonly cover: string;
+  /**
+   * The localStorage key prefix the engine itself writes to — NOT always the slug:
+   * `sarmasik` keeps the original `intikam-yemini:v1:` prefix; `mythologica` keeps
+   * `codex-mythologica:v1:`. Discovered by READ-ONLY inspection of
+   * `www/books/<slug>/scripts/storage.js` (SUB-PR 2.2). Used by the migration to
+   * mirror engine state into SQLite without touching the frozen engine.
+   */
+  readonly localStoragePrefix: string;
 }
 
 export const BOOKS: readonly BookMeta[] = [
@@ -38,6 +47,7 @@ export const BOOKS: readonly BookMeta[] = [
     splashBackgroundColor: '#05080c',
     cta: 'Oku',
     cover: 'assets/cover.jpg',
+    localStoragePrefix: 'intikam-yemini:v1:',
   },
   {
     slug: 'tuzun-hafizasi',
@@ -52,6 +62,7 @@ export const BOOKS: readonly BookMeta[] = [
     splashBackgroundColor: '#0a1418',
     cta: 'Oku',
     cover: 'assets/cover.jpg',
+    localStoragePrefix: 'tuzun-hafizasi:v1:',
   },
   {
     slug: 'mendiran-vakayinamesi',
@@ -66,6 +77,7 @@ export const BOOKS: readonly BookMeta[] = [
     splashBackgroundColor: '#0a0708',
     cta: 'Oku',
     cover: 'assets/cover.jpg',
+    localStoragePrefix: 'mendiran-vakayinamesi:v1:',
   },
   {
     slug: 'mythologica',
@@ -80,6 +92,7 @@ export const BOOKS: readonly BookMeta[] = [
     splashBackgroundColor: '#0c0807',
     cta: 'Read',
     cover: 'assets/cover.jpg',
+    localStoragePrefix: 'codex-mythologica:v1:',
   },
   {
     slug: 'solgun-kitabe',
@@ -94,6 +107,7 @@ export const BOOKS: readonly BookMeta[] = [
     splashBackgroundColor: '#06040a',
     cta: 'Oku',
     cover: 'assets/cover.jpg',
+    localStoragePrefix: 'solgun-kitabe:v1:',
   },
   {
     slug: 'fabl',
@@ -107,6 +121,7 @@ export const BOOKS: readonly BookMeta[] = [
     splashBackgroundColor: '#0e161d',
     cta: 'Oku',
     cover: 'assets/cover.jpg',
+    localStoragePrefix: 'fabl:v1:',
   },
 ] as const;
 
