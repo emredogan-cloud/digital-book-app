@@ -1,0 +1,34 @@
+# ── Dependencies ──
+node_modules/
+
+# ── Native projects (Capacitor; generated — Phase 1 may commit android/ selectively) ──
+/android/
+/ios/
+
+# ── Build output / artifacts ──
+dist/
+build/
+*.log
+*.tmp
+
+# ── Capacitor / Android signing (NEVER commit keystores) ──
+.gradle/
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# ── Environment / secrets ──
+.env
+.env.*
+!.env.example
+
+# ── Editor / OS ──
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ── Claude Code personal (local) settings — shared settings.json stays tracked ──
+.claude/settings.local.json

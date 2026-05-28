@@ -1,0 +1,13 @@
+{
+  "name": "living-library",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Living Library — premium, offline-first mobile reading catalog (Capacitor WebView hybrid). Android-first.",
+  "license": "UNLICENSED",
+  "scripts": {
+    "serve": "python3 -m http.server 8080 --bind 127.0.0.1 --directory www",
+    "build": "echo \"[living-library] No shell build yet — configured in SUB-PR 1.1 (Vite + TS).\"",
+    "lint": "echo \"[living-library] No linter yet — configured in SUB-PR 1.1.\"",
+    "test": "echo \"[living-library] No tests yet — added in later SUB-PRs.\""
+  }
+}
