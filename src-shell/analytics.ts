@@ -88,32 +88,42 @@ let _initPromise: Promise<void> | null = null;
 async function initIfReady(): Promise<void> {
   if (_posthog) return;
   if (_initPromise) return _initPromise;
-  const key = import.meta.env.VITE_POSTHOG_KEY;
-  if (!key) {
-    console.debug('[Living Library] PostHog skipped (no VITE_POSTHOG_KEY)');
-    return;
-  }
-  if (getAnalyticsConsent() !== 'granted') {
-    console.debug('[Living Library] PostHog skipped (consent not granted)');
-    return;
-  }
-  _initPromise = (async () => {
-    const mod = await import('posthog-js');
-    const posthog = mod.default;
-    posthog.init(key, {
-      api_host: import.meta.env.VITE_POSTHOG_HOST ?? 'https://app.posthog.com',
-      capture_pageview: false, // we use explicit emit() events
-      capture_pageleave: false,
-      autocapture: false, // explicit-only; no DOM-watching
-      persistence: 'localStorage',
-      person_profiles: 'identified_only',
+  // The whole body sits inside try/catch so the literal `import.meta.env.VITE_*`
+  // access — which Vite's transform statically replaces with the .env value at
+  // build time, enabling dead-code-elimination when the value is empty — is
+  // preserved exactly, while raw Node/tsx execution (where `import.meta.env` is
+  // undefined) cleanly degrades to a no-op via the catch.
+  try {
+    const key = import.meta.env.VITE_POSTHOG_KEY;
+    if (!key) {
+      console.debug('[Living Library] PostHog skipped (no VITE_POSTHOG_KEY)');
+      return;
+    }
+    if (getAnalyticsConsent() !== 'granted') {
+      console.debug('[Living Library] PostHog skipped (consent not granted)');
+      return;
+    }
+    const apiHost = import.meta.env.VITE_POSTHOG_HOST ?? 'https://app.posthog.com';
+    _initPromise = (async () => {
+      const mod = await import('posthog-js');
+      const posthog = mod.default;
+      posthog.init(key, {
+        api_host: apiHost,
+        capture_pageview: false, // we use explicit emit() events
+        capture_pageleave: false,
+        autocapture: false, // explicit-only; no DOM-watching
+        persistence: 'localStorage',
+        person_profiles: 'identified_only',
+      });
+      _posthog = posthog;
+      console.debug('[Living Library] PostHog initialized');
+    })().catch((err) => {
+      console.warn('[Living Library] PostHog init failed:', err);
     });
-    _posthog = posthog;
-    console.debug('[Living Library] PostHog initialized');
-  })().catch((err) => {
-    console.warn('[Living Library] PostHog init failed:', err);
-  });
-  return _initPromise;
+    await _initPromise;
+  } catch {
+    /* no Vite env present (e.g. tsx tests) — silently no-op */
+  }
 }
 
 /**

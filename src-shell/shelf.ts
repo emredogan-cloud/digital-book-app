@@ -11,6 +11,7 @@ import { BOOKS, type BookMeta } from './books.js';
 import { getLastOpenedSlug, type LLBridge } from './ll-bridge.js';
 import { getStorage, readEngineProgress } from './storage/index.js';
 import { getStreak } from './streak.js';
+import { getAnalyticsConsent, setAnalyticsConsent } from './analytics.js';
 
 export function renderShelf(root: HTMLElement, bridge: LLBridge): void {
   root.setAttribute('aria-busy', 'false');
@@ -165,9 +166,37 @@ function buildFooter(): HTMLElement {
   const el = document.createElement('footer');
   el.innerHTML = `
     <span>${BOOKS.length} kitap · çevrimdışı · sıfır bağımlılık</span>
-    <span>serve: <code>npm run serve</code></span>
+    <span class="footer-actions">
+      <button type="button" class="footer-consent" data-consent-toggle></button>
+    </span>
   `;
+  wireConsentToggle(el);
   return el;
+}
+
+/**
+ * Tiny, unobtrusive consent toggle in the footer (SUB-PR 2.4).
+ * Default state is "unknown" — read as OFF; the user opts in/out with a single tap.
+ * Persisted via setAnalyticsConsent → localStorage at `ll:analytics:consent`.
+ */
+function wireConsentToggle(footer: HTMLElement): void {
+  const btn = footer.querySelector<HTMLButtonElement>('[data-consent-toggle]');
+  if (!btn) return;
+  const refresh = (): void => {
+    const state = getAnalyticsConsent();
+    const isOn = state === 'granted';
+    btn.textContent = isOn ? '📊 Analiz: Açık' : '📊 Analiz: Kapalı';
+    btn.title = isOn
+      ? 'Anonim kullanım analitiği etkin. Tıklayarak kapatabilirsiniz.'
+      : 'Anonim kullanım analitiği kapalı. Tıklayarak açabilirsiniz.';
+    btn.dataset.state = state;
+    btn.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+  };
+  refresh();
+  btn.addEventListener('click', () => {
+    setAnalyticsConsent(getAnalyticsConsent() !== 'granted');
+    refresh();
+  });
 }
 
 function revealCards(grid: HTMLElement): void {

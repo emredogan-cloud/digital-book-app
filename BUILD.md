@@ -190,3 +190,62 @@ Before moving beyond Internal Testing:
 - Privacy policy URL hosted and reflected in Data Safety.
 - Sentry DSN populated and confirmed receiving events.
 - ≥ 2 OEM devices verified in this matrix (this SUB-PR's gate).
+
+---
+
+## J. Phase 2 manual QA (SUB-PR 2.4)
+
+Phase 2 added instrumentation (PostHog + Sentry + Crashlytics) + a consent gate. Automated tests cover what they can (migration · event-fires-once · consent persistence · 1ms perf budget — `npm test` runs all 4). These are the **manual** checks that need a real device + real credentials.
+
+### J.1 Consent UI — visual + behavior sweep (any device)
+1. Install the release APK (`./gradlew installRelease`).
+2. Open the app → look at the **footer** of the bookshelf.
+3. You should see a small `📊 Analiz: Kapalı` chip on the right side.
+4. **Tap it** → label flips to `📊 Analiz: Açık`. Color shifts to a soft green.
+5. Tap again → returns to `Kapalı`. Color returns to muted.
+6. Force-close the app and reopen → the choice persists.
+- [ ] Visible · [ ] On-tap toggles · [ ] Color changes · [ ] Persists across restarts.
+
+### J.2 PostHog activation (after you populate `VITE_POSTHOG_KEY`)
+1. Put the key + host in `.env` (`VITE_POSTHOG_KEY=phc_…`).
+2. `npm run prod` → re-install on the device.
+3. In the app, **tap the consent chip to "Açık"** — this kicks the dynamic `import('posthog-js')`.
+4. Open a book, turn a few pages, change theme, add a bookmark, return to shelf.
+5. In the **PostHog Live Events** dashboard, confirm you see (within ~30 s):
+   `app_open` · `shelf_view` · `book_open` · `cover_gate_opened` · `page_turn` *(several)* · `theme_change` · `bookmark_add` · `font_scale_change` *(if you tapped it)*.
+- [ ] All expected events arrive · [ ] No `chapter_complete` / `book_complete` (deferred — expected) · [ ] No PII in the payload set.
+
+### J.3 Sentry test JS error
+1. Set `VITE_SENTRY_DSN` in `.env`, rebuild, reinstall.
+2. Enable Chrome remote debug (`chrome://inspect`) → attach to the WebView.
+3. In the DevTools console, run: `throw new Error('test from BUILD.md §J.3');`
+4. Confirm the event lands in your Sentry inbox within ~30 s, with sourcemapped stack (release tagged with the commit SHA — uploaded by the GitHub Action).
+- [ ] Event arrives · [ ] Stack is sourcemapped (function names not minified).
+
+### J.4 Crashlytics native crash test
+*(After `google-services.json` is in `android/app/` per `FIREBASE_CRASHLYTICS_SETUP.md`.)*
+1. `npm run prod` → reinstall (Gradle now applies the GMS plugin).
+2. Run the app once so Crashlytics registers.
+3. In a future debug build we'll add a "force crash" button; for now use:
+   ```bash
+   adb shell am force-stop com.emre.livinglibrary
+   adb shell am start -W -n com.emre.livinglibrary/.MainActivity
+   ```
+   (no crash yet — Crashlytics activation is what we're testing.)
+4. Open the **Firebase Console → Crashlytics**. After ~5 min the app should be listed as "active" (no crashes is fine — that's what we want).
+- [ ] Crashlytics shows the app as live · [ ] No crashes from normal use.
+
+### J.5 Privacy sanity check (BEFORE consent grant)
+1. Fresh install (or "Clear app data" first).
+2. In the PostHog Live Events dashboard, watch for any incoming events for ~2 min while you tap around in the app *without granting consent*.
+- [ ] **Zero events arrive at PostHog.** (If any do, that's a bug — file an issue immediately.)
+- [ ] No network requests to `*.posthog.com` in Chrome DevTools Network tab.
+
+### J.6 Performance probe on-device (subjective)
+Page-turn animation should feel just as smooth with instrumentation active as it did before. The `npm test` perf test measured ~0.1 μs per emit dispatch (8000× headroom under the 1 ms budget), but the on-device feel is the real signal.
+- [ ] Page-turn feels equally smooth with consent **off** and with consent **on**.
+
+### J.7 Sign-off
+- [ ] J.1 — Consent UI works · J.2 — PostHog receives the expected event set · J.3 — Sentry test error arrives · J.4 — Crashlytics is wired · J.5 — Zero events pre-consent · J.6 — No perf regression.
+
+Once §J is fully ticked, Phase 2 is human-validated end-to-end.

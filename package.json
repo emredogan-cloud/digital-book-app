@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint src-shell",
     "format": "prettier --write \"src-shell/**/*.{ts,js,json}\"",
-    "test": "tsx test/storage-migration.test.ts",
+    "test": "tsx test/storage-migration.test.ts && tsx test/event-once.test.ts && tsx test/consent-gate.test.ts && tsx test/perf.test.ts",
     "cap:sync": "vite build && cap sync",
     "cap:doctor": "cap doctor",
     "prod": "vite build && cap sync && cd android && ./gradlew bundleRelease"

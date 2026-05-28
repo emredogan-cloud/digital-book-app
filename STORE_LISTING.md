@@ -67,11 +67,42 @@ For readers who want books to feel like objects again.
 ## Content rating
 Run the IARC questionnaire as: Books & Reference → text-only content → no explicit material → typical outcome **Teen**.
 
-## Data Safety (initial — re-declare in Phase 2 when analytics ships)
-- **Data collected:** None.
-- **Data shared:** None.
-- **App requests at runtime:** None for content. The book pages load Google Fonts (typography); the rest of the app is offline.
-- **Crash & error reporting:** Sentry browser SDK is **wired but disabled** in this build (no DSN). Will be declared when activated.
+## Data Safety (updated for SUB-PR 2.3 + 2.4 instrumentation)
+
+**Privacy promise:** **no event leaves the device until the user explicitly grants consent** via the bookshelf footer toggle ("📊 Analiz: Kapalı" → "📊 Analiz: Açık"). Default is **off**. Persisted at `localStorage['ll:analytics:consent']`.
+
+### Data collected when consent is granted (PostHog)
+Anonymous, behavioral events only. **No PII** is collected. Each event ships *only* the listed payload fields — no name, email, IP-derived PII (PostHog masks IP at ingest), no device IDs the app generates, no content excerpts.
+
+| Event | When | Payload fields the app sets |
+|---|---|---|
+| `app_open` | Shell boots | *(none)* |
+| `shelf_view` | Bookshelf renders | *(none)* |
+| `book_open` | User taps a book | `bookId` (slug) |
+| `cover_gate_opened` | First time the book's cover-gate is dismissed | `bookId` |
+| `page_turn` | Every spread change inside a book | `bookId`, `spread` *(integer page-pair index)* |
+| `chapter_complete` | *(deferred — engine has no clean single-line completion signal yet)* | — |
+| `book_complete` | *(deferred)* | — |
+| `bookmark_add` | User adds a bookmark | `bookId`, `spread` |
+| `theme_change` | User toggles the in-book theme | `bookId`, `theme` *(preset name)* |
+| `font_scale_change` | User changes the type step | `bookId`, `typeStep` *(0–4)* |
+| `session_end` | *(shell-side, future hook)* | — |
+| `error` | JS error / unhandled rejection caught by the shell | `message`, optional `filename` / `lineno` / `kind`. The book engine doesn't put user content in errors. |
+
+### Crash & error reporting
+- **Sentry** (JS errors / WebView): browser SDK wired; activates when `VITE_SENTRY_DSN` is populated. Source maps uploaded by `.github/workflows/sentry-sourcemaps.yml`.
+- **Firebase Crashlytics** (native Android crashes): activates when `google-services.json` is dropped into `android/app/` (see `FIREBASE_CRASHLYTICS_SETUP.md`).
+- **Android Vitals**: automatic post-install in Play Console; no code / config needed.
+
+### Declarations to make in Play Console "Data Safety"
+- **App activity → Page views and taps**: ✅ Collected (only with consent). Purpose: Analytics + App functionality. Optional to the user (in-app toggle).
+- **App info and performance → Crash logs**: ✅ Collected. Purpose: App functionality + Analytics.
+- **App info and performance → Diagnostics**: ✅ Collected (Sentry breadcrumbs, performance traces). Purpose: Analytics.
+- **All other Play categories** (personal info, financial, location, web history, contacts, etc.): **Not collected**.
+
+### User controls
+- **In-app:** bookshelf footer → "📊 Analiz" toggle (one tap; persisted at `localStorage['ll:analytics:consent']`). Default is **off**.
+- **OS-level:** standard Android "Clear app data" resets the consent flag and all on-device data.
 
 ## ASO keywords / discovery
 - **TR:** kitap, e-kitap, çevrimdışı kitap, edebiyat, hikaye, roman, fantazi, mitoloji, Türk edebiyatı, cyber-noir
