@@ -1,12 +1,10 @@
-// Living Library — shell entry (Phase 1.1 scaffolding placeholder).
-//
-// This file exists to prove the TypeScript + Vite build pipeline emits an
-// IIFE bundle into www/shell/ without touching www/books/** (Motor LOCK).
-// The real shell UI + `window.LL` bridge (emit / isUnlocked / openBook)
-// land in SUB-PR 1.2; the namespace itself is reserved by
-// www/shared/ll-namespace.js (SUB-PR 0.1).
+// Living Library — shell entry (SUB-PR 1.2).
+// Installs `window.LL` and renders the bookshelf into `#ll-root`.
 
-export const SHELL_BUILD = '0.0.0-scaffold' as const;
+import { installBridge } from './ll-bridge.js';
+import { renderShelf } from './shelf.js';
+
+export const SHELL_BUILD = '1.2.0-bookshelf' as const;
 
 declare global {
   interface Window {
@@ -14,8 +12,23 @@ declare global {
   }
 }
 
-if (typeof window !== 'undefined') {
-  window.__LL_SHELL__ = { build: SHELL_BUILD };
+const bridge = installBridge();
+window.__LL_SHELL__ = { build: SHELL_BUILD };
+
+function boot(): void {
+  const root = document.getElementById('ll-root');
+  if (!root) {
+    console.error('[Living Library] #ll-root not found — shell aborted');
+    return;
+  }
+  renderShelf(root, bridge);
+  bridge.emit('shelf_view');
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
 }
 
 console.debug('[Living Library] shell build', SHELL_BUILD);
