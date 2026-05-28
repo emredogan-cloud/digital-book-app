@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="description" content="Codex Mythologica — an interactive illuminated manuscript of world mythology. Twenty-six tales from Greek, Egyptian, Norse, Japanese, Hindu, Celtic, Mesopotamian, and Aztec traditions." />
+    <meta name="theme-color" content="#0c0807" />
+    <title>Codex Mythologica · An Illuminated Archive of the Ancient World</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- PERF: trimmed from 5 families × ~30 axes to 4 families × 8 axes.
+         Dropped Playfair Display entirely (was unused in markup). -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=EB+Garamond:wght@400;500&family=UnifrakturMaguntia&display=swap" rel="stylesheet" />
+
+    <!-- Book identity / share image (make og:image an absolute URL once the domain is known) -->
+    <meta property="og:type" content="book" />
+    <meta property="og:title" content="Codex Mythologica · An Illuminated Archive of the Ancient World" />
+    <meta property="og:description" content="An illuminated archive of world mythology — 76 myths across 19 civilizations." />
+    <meta property="og:image" content="assets/cover.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Preload the cover so the threshold paints fast -->
+    <link rel="preload" as="image" href="assets/cover.webp" type="image/webp" fetchpriority="high" />
+
+    <link rel="stylesheet" href="styles/themes.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/animations.css" />
+    <link rel="stylesheet" href="styles/cover.css" />
+
+    <!-- PERF: detect low-power devices BEFORE first paint so the optimized
+         palette/animations apply on the very first frame, not after JS boot.
+         Lite mode disables: feTurbulence noise, infinite ambient drift,
+         backdrop-filter blur, infinite drop-shadow pulses, 3D page-flip
+         rotation (uses opacity crossfade instead). -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('codex-mythologica:v1:perfMode');
+                var mode = saved ? JSON.parse(saved) : null;
+                if (mode === null) {
+                    var nav = window.navigator || {};
+                    var cores = nav.hardwareConcurrency || 4;
+                    var mem = nav.deviceMemory || 4;
+                    var coarse = matchMedia && matchMedia('(any-pointer: coarse)').matches;
+                    var smallish = window.innerWidth < 900;
+                    var reduce = matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    mode = (cores <= 4 || mem <= 4 || (coarse && smallish) || reduce) ? 'lite' : 'rich';
+                }
+                document.documentElement.dataset.perf = mode;
+            } catch (e) {
+                document.documentElement.dataset.perf = 'rich';
+            }
+        })();
+    </script>
+</head>
+<body class="is-loading" data-theme="midnight">
+
+    <!-- ════════════ ENTRY THRESHOLD — COVER (the codex builds behind this, unseen) ════════════ -->
+    <div id="cover-gate" class="cover-gate" role="dialog" aria-modal="true" aria-label="Codex Mythologica — cover">
+        <button id="cover-open" class="book3d" type="button" aria-label="Codex Mythologica — open the book">
+            <span class="book3d__inside" aria-hidden="true"></span>
+            <span class="book3d__page" aria-hidden="true"></span>
+            <span class="book3d__leaf">
+                <picture>
+                    <source srcset="assets/cover.webp" type="image/webp" />
+                    <img class="book3d__cover" src="assets/cover.jpg"
+                         width="1024" height="1536"
+                         alt="Codex Mythologica — cover: an open illuminated book radiating gold light into divine masks from many world mythologies."
+                         decoding="async" fetchpriority="high" />
+                </picture>
+                <span class="book3d__spine" aria-hidden="true"></span>
+                <span class="book3d__peel" aria-hidden="true"></span>
+            </span>
+            <span class="book3d__ribbon" aria-hidden="true"></span>
+        </button>
+        <div class="cover-gate__cue" aria-hidden="true">
+            <svg viewBox="0 0 40 28" width="34" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M20 6 C14 2 6 2 2 5 L2 23 C6 20 14 20 20 24 C26 20 34 20 38 23 L38 5 C34 2 26 2 20 6 Z" />
+                <path d="M20 6 L20 24" />
+            </svg>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var b = document.body,
+                gate = document.getElementById('cover-gate'),
+                openBtn = document.getElementById('cover-open');
+            var navKeys = ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' ','f','F','k','K','i','I','İ','t','T','y','Y','p','P','v','V','b','B','m','M','a','A','x','X','s','S','w','W','d','D'];
+            function enter() {
+                if (b.classList.contains('is-entered')) return;
+                b.classList.add('is-entered');
+                var book = document.getElementById('book');
+                if (book) { try { book.focus({ preventScroll: true }); } catch (e) {} }
+                setTimeout(function () { if (gate) gate.setAttribute('aria-hidden', 'true'); }, 650);
+            }
+            if (openBtn) openBtn.addEventListener('click', function (e) { e.stopPropagation(); enter(); });
+            if (gate) gate.addEventListener('click', enter);
+            document.addEventListener('keydown', function (e) {
+                if (b.classList.contains('is-entered')) return;
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); enter(); return; }
+                if (navKeys.indexOf(e.key) !== -1) { e.stopPropagation(); }
+            }, true);
+            try { if (openBtn) openBtn.focus({ preventScroll: true }); } catch (e) {}
+        })();
+    </script>
+
+    <!-- ════════════ INITIAL LOADING VEIL ════════════ -->
+    <div id="loader" class="loader" aria-hidden="true">
+        <div class="loader__sigil">
+            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                    <radialGradient id="sigilGold" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#f5d98a" />
+                        <stop offset="60%" stop-color="#c9a14a" />
+                        <stop offset="100%" stop-color="#7a5a1c" />
+                    </radialGradient>
+                </defs>
+                <circle cx="60" cy="60" r="54" fill="none" stroke="url(#sigilGold)" stroke-width="0.7" opacity="0.7"/>
+                <circle cx="60" cy="60" r="44" fill="none" stroke="url(#sigilGold)" stroke-width="0.5" opacity="0.5"/>
+                <g class="loader__rune" stroke="url(#sigilGold)" stroke-width="1.1" fill="none">
+                    <path d="M60 12 L60 108" />
+                    <path d="M12 60 L108 60" />
+                    <path d="M22 22 L98 98" />
+                    <path d="M98 22 L22 98" />
+                </g>
+                <circle cx="60" cy="60" r="8" fill="url(#sigilGold)"/>
+                <circle cx="60" cy="60" r="3" fill="#1c1410"/>
+            </svg>
+        </div>
+        <p class="loader__text">Unsealing the codex…</p>
+    </div>
+
+    <!-- ════════════ AMBIENT BACKDROP ════════════ -->
+    <div class="ambient" aria-hidden="true">
+        <div class="ambient__vignette"></div>
+        <div class="ambient__nebula"></div>
+        <div class="ambient__dust"></div>
+    </div>
+
+    <!-- ════════════ TOP CHROME ════════════ -->
+    <header class="chrome chrome--top" role="banner">
+        <div class="chrome__brand">
+            <span class="chrome__monogram" aria-hidden="true">℞</span>
+            <span class="chrome__title">Codex Mythologica</span>
+        </div>
+        <div class="chrome__actions">
+            <button class="chrome__btn" id="btn-toc" type="button" aria-label="Open table of contents" title="Table of Contents (T)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-bookmark" type="button" aria-label="Toggle bookmark on current spread" title="Bookmark (B)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M6 3h12v18l-6-4-6 4z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-bookmarks" type="button" aria-label="Open bookmarks panel" title="Bookmarks (M)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M5 3h14v18l-7-4.5L5 21z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-theme" type="button" aria-label="Cycle ambient theme" title="Theme (V)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A8 8 0 0 1 12 2z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-font" type="button" aria-label="Cycle reading typography size" title="Type Size (A)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><text x="4" y="18" font-family="serif" font-weight="700" font-size="18" fill="currentColor">Aa</text></svg>
+            </button>
+            <button class="chrome__btn" id="btn-perf" type="button" aria-label="Toggle performance mode" title="Performance Mode (X)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M13 2 3 14h7l-1 8 11-13h-7z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-fullscreen" type="button" aria-label="Toggle fullscreen reading" title="Fullscreen (F)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M4 4h6v2H6v4H4zm10 0h6v6h-2V6h-4zM4 14h2v4h4v2H4zm14 0h2v6h-6v-2h4z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-print" type="button" aria-label="Export the codex as PDF" title="Export PDF (P)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M7 3h10v6H7zM5 9h14a2 2 0 0 1 2 2v6h-4v4H7v-4H3v-6a2 2 0 0 1 2-2zm2 8v4h10v-4z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- ════════════ THE BOOK STAGE ════════════ -->
+    <main class="stage" id="stage" role="main" aria-label="The Codex Mythologica reading stage">
+        <div class="stage__pedestal" aria-hidden="true"></div>
+
+        <div class="book" id="book" aria-roledescription="interactive book" tabindex="0">
+            <div class="book__shadow" aria-hidden="true"></div>
+
+            <!-- Pages are mounted here dynamically by book.js -->
+            <div class="book__pages" id="book-pages"></div>
+
+            <!-- Click zones for page turning -->
+            <button class="book__edge book__edge--left" id="edge-prev" type="button" aria-label="Previous page">
+                <span class="book__edge-arrow" aria-hidden="true">‹</span>
+            </button>
+            <button class="book__edge book__edge--right" id="edge-next" type="button" aria-label="Next page">
+                <span class="book__edge-arrow" aria-hidden="true">›</span>
+            </button>
+
+            <!-- The bookmark ribbon appears on bookmarked spreads -->
+            <div class="book__ribbon" id="book-ribbon" aria-hidden="true"></div>
+        </div>
+    </main>
+
+    <!-- ════════════ BOTTOM CHROME ════════════ -->
+    <footer class="chrome chrome--bottom" role="contentinfo">
+        <button class="chrome__nav" id="btn-prev" type="button" aria-label="Previous spread">
+            <span aria-hidden="true">◂</span><span class="chrome__nav-label">Previous</span>
+        </button>
+
+        <div class="chrome__progress" aria-label="Reading progress">
+            <div class="chrome__chapter" id="chapter-label">—</div>
+            <div class="chrome__bar"><div class="chrome__bar-fill" id="progress-fill"></div></div>
+            <div class="chrome__pages"><span id="page-current">1</span> <span class="chrome__sep">/</span> <span id="page-total">1</span></div>
+        </div>
+
+        <button class="chrome__nav" id="btn-next" type="button" aria-label="Next spread">
+            <span class="chrome__nav-label">Next</span><span aria-hidden="true">▸</span>
+        </button>
+    </footer>
+
+    <!-- ════════════ TABLE OF CONTENTS DRAWER ════════════ -->
+    <aside class="drawer" id="toc-drawer" aria-hidden="true" aria-labelledby="toc-title">
+        <div class="drawer__scrim" data-drawer-close></div>
+        <div class="drawer__panel" role="dialog" aria-modal="true">
+            <header class="drawer__head">
+                <h2 id="toc-title" class="drawer__title">Tabula Mythologica</h2>
+                <button class="drawer__close" type="button" aria-label="Close" data-drawer-close>×</button>
+            </header>
+
+            <div class="drawer__filters" id="toc-filters" role="tablist" aria-label="Filter by civilization"></div>
+
+            <div class="drawer__search">
+                <input type="search" id="toc-search" placeholder="Search the codex…" aria-label="Search stories" autocomplete="off" />
+            </div>
+
+            <nav class="drawer__list" id="toc-list" aria-label="Stories"></nav>
+        </div>
+    </aside>
+
+    <!-- ════════════ BOOKMARKS DRAWER ════════════ -->
+    <aside class="drawer drawer--right" id="bookmarks-drawer" aria-hidden="true" aria-labelledby="bm-title">
+        <div class="drawer__scrim" data-drawer-close></div>
+        <div class="drawer__panel" role="dialog" aria-modal="true">
+            <header class="drawer__head">
+                <h2 id="bm-title" class="drawer__title">Marked Folios</h2>
+                <button class="drawer__close" type="button" aria-label="Close" data-drawer-close>×</button>
+            </header>
+            <div class="drawer__list" id="bookmarks-list"></div>
+        </div>
+    </aside>
+
+    <!-- ════════════ TOAST NOTIFICATIONS ════════════ -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- ════════════ KEYBOARD HINT ════════════ -->
+    <div class="hint" id="hint" aria-hidden="true">
+        <span><kbd>←</kbd><kbd>→</kbd> turn pages</span>
+        <span><kbd>T</kbd> contents</span>
+        <span><kbd>B</kbd> bookmark</span>
+        <span><kbd>F</kbd> fullscreen</span>
+    </div>
+
+    <!-- ════════════ PRINT MOUNT (invisible until print) ════════════ -->
+    <div class="print-mount" id="print-mount" aria-hidden="true"></div>
+
+    <!-- ════════════ SCRIPTS ════════════ -->
+    <script src="content/mythology-data.js"></script>
+    <script src="content/stories.js"></script>
+    <script src="content/stories-extended.js"></script>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/book.js"></script>
+    <script src="scripts/pdf-export.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>

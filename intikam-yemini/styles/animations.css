@@ -1,0 +1,49 @@
+/* ════════════════════════════════════════════════════════════════
+   TUZUN HAFIZASI — Animasyon katmanı.
+   Hareketler kısıtlı: tuzun döküldüğü, mumun titrediği frekans.
+   ════════════════════════════════════════════════════════════════ */
+
+/* Tuz tanesi yumuşak süzülme */
+@keyframes salt-drift {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.85; }
+    50%      { transform: translateY(-6px) rotate(2deg); opacity: 1; }
+}
+
+/* Mum / kandil titremesi */
+@keyframes text-flicker {
+    0%, 100% { opacity: 0.7; }
+    32%      { opacity: 0.5; }
+    34%      { opacity: 0.78; }
+    62%      { opacity: 0.55; }
+}
+
+/* Sahil rüzgârı — ambient nebula yavaş kayar */
+@keyframes sea-drift {
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(-12px, 8px); }
+}
+
+[data-perf="rich"] .ambient__sea {
+    animation: sea-drift 32s ease-in-out infinite;
+}
+
+/* Toz / pus — statik. Animasyon kaldırıldı (background-position her karede
+   tüm katmanı yeniden boyatıyordu). Atmosfer korundu, hesaplama maliyeti yok. */
+
+/* :first-letter animasyonu kaldırıldı — her spread render'da innerHTML
+   yeniden yazıldığından animasyon her sayfa çevirmede tetikleniyordu.
+   Drop cap stili korunur (main.css'de), yalnızca animasyon yok. */
+
+/* Loader sigil yumuşak nefes */
+@keyframes salt-breath {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loader__sigil,
+    .ambient__sea,
+    .loader__text { animation: none !important; }
+    .page { transition: none !important; }
+    .page--turning { transition: none !important; }
+}

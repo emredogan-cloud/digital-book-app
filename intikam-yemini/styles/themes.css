@@ -1,0 +1,236 @@
+/* ════════════════════════════════════════════════════════════════
+   SARMAŞIK · NAZAR — TEMA KATMANLARI
+   Üç ruh hâli (motor LOCK gereği üç tema kimliği korunur):
+     tuzlu       → "Gece Nöbeti" (varsayılan; soğuk siber-noir, sunucu ışığı)
+     kumlu       → "Gri Saat" (gündüz okuma; donuk beton-grisi)
+     gece-deniz  → "Boğaz Gecesi" (derin gece; karanlık + camgöbeği parıltı)
+   Palet: void-siyahı, çelik-mavisi, gözetim camgöbeği (sinyal), sodyum
+   ışığı, alarm pası. Prestij/ölçülü — neon değil. Sayfa daima okunaklı
+   (koyu sahnede soğuk kâğıt); aksan tek: sinyal camgöbeği.
+   Not: değişken adları motorla (main.css) sözleşmedir; adlar korunur,
+   değerler siber-noir'e göre yeniden eşlenir.
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* ────────── Yazı ölçeği (modular, 1.25) ────────── */
+    --t-xs:    0.75rem;
+    --t-sm:    0.875rem;
+    --t-base:  1rem;
+    --t-md:    1.125rem;
+    --t-lg:    1.35rem;
+    --t-xl:    1.7rem;
+    --t-2xl:   2.15rem;
+    --t-3xl:   2.85rem;
+    --t-4xl:   3.75rem;
+    --t-5xl:   5rem;
+
+    --reader-scale: 1;
+
+    --s-1: 0.25rem;
+    --s-2: 0.5rem;
+    --s-3: 0.75rem;
+    --s-4: 1rem;
+    --s-5: 1.5rem;
+    --s-6: 2rem;
+    --s-7: 3rem;
+    --s-8: 4.5rem;
+    --s-9: 6rem;
+
+    --ease-page:    cubic-bezier(0.6, 0.05, 0.3, 1);
+    --ease-veil:    cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-soft:    cubic-bezier(0.4, 0.1, 0.3, 1);
+
+    --d-page: 950ms;
+    --d-quick: 220ms;
+    --d-medium: 480ms;
+    --d-slow: 1100ms;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   GECE NÖBETİ — Varsayılan. Soğuk siber-noir; void-siyahı sahne,
+   sunucu/ekran ışığının soğuk kâğıdı; tek aksan: sinyal camgöbeği.
+   ════════════════════════════════════════════════════════════════ */
+[data-theme="tuzlu"] {
+    --c-void:       #05080c;
+    --c-shadow:     #0a0f15;
+    --c-deep:       #0f1620;
+    --c-bark:       #16202b;
+    --c-rust:       #1c1814;
+    --c-ember:      #2e3a44;
+    --c-flame:      #466074;
+
+    --c-page:       #e7eaee;      /* Soğuk ekran-kâğıdı */
+    --c-page-dim:   #d2d8de;
+    --c-page-edge:  #a8b2bc;
+    --c-page-fold:  #5e6a76;
+    --c-vellum:     #eef1f4;
+
+    --c-ink:        #12171d;
+    --c-ink-soft:   #2a333d;
+    --c-ink-quote:  #3a5663;      /* Çelik-camgöbeği alıntı */
+
+    /* "Altın" yerine "sinyal" — soğuk camgöbeği-çelik aksan */
+    --c-gold:       #5f8e9c;
+    --c-gold-soft:  #82a8b4;
+    --c-gold-bright:#aecdd5;
+    --c-gold-deep:  #38545e;
+
+    --c-sigil:      #6f8794;
+    --c-rune:       #8fb0bb;
+    --c-blood:      #a23b30;       /* Alarm pası */
+    --c-blood-soft: #c25a4c;
+    --c-bone:       #dde3e8;
+    --c-iron:       #44586a;       /* Çelik mavisi */
+    --c-emerald:    #2f5b4e;       /* Donuk sinyal yeşili */
+    --c-lapis:      #122438;       /* Derin siber mavi */
+    --c-salt-thread:#4fbcce;       /* SİNYAL damarı — parlak camgöbeği */
+
+    --c-chrome-bg:  rgba(6, 10, 16, 0.86);
+    --c-chrome-fg:  #aebcc6;
+    --c-chrome-fg-dim: #5e6e7a;
+    --c-chrome-line: rgba(95, 142, 156, 0.16);
+
+    --bg-stage:
+        radial-gradient(ellipse at center, #0e1822 0%, #05080c 62%, #020407 100%);
+    --bg-vignette:
+        radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.86) 100%);
+
+    --shadow-book:
+        0 32px 64px -18px rgba(0,0,0,0.88),
+        0 14px 26px -8px rgba(0,0,0,0.62),
+        0 0 0 1px rgba(95, 142, 156, 0.10);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.22);
+    --glow-gold:   0 0 16px rgba(79, 188, 206, 0.20);
+
+    /* Beş hareket için ayırt edici tonlar */
+    --act-esik:     #4fbcce;       /* Eşik — izleyen sinyal */
+    --act-catlak:   #6f8794;       /* Sıradan ve Çatlak — soğuk çelik */
+    --act-usul:     #5f8e9c;       /* Usul — kurumsal camgöbeği */
+    --act-kampanya: #a23b30;       /* Kampanya — alarm pası */
+    --act-kaybolma: #38545e;       /* Kaybolma — derin void teal */
+}
+
+/* ════════════════════════════════════════════════════════════════
+   GRİ SAAT — Gündüz okuma. Donuk beton-grisi, açık zemin; soğuk
+   ama yorucu olmayan. Çelik aksan koyulaşır.
+   ════════════════════════════════════════════════════════════════ */
+[data-theme="kumlu"] {
+    --c-void:       #d8dde2;
+    --c-shadow:     #cad1d7;
+    --c-deep:       #b8c2ca;
+    --c-bark:       #a6b2bc;
+    --c-rust:       #9aa4ac;
+    --c-ember:      #8693a0;
+    --c-flame:      #6e8290;
+
+    --c-page:       #eef1f3;
+    --c-page-dim:   #e2e7ea;
+    --c-page-edge:  #bcc6cd;
+    --c-page-fold:  #7e8a94;
+    --c-vellum:     #f4f6f8;
+
+    --c-ink:        #1a2128;
+    --c-ink-soft:   #2e3842;
+    --c-ink-quote:  #3c5a66;
+
+    --c-gold:       #3f6a78;
+    --c-gold-soft:  #5a8492;
+    --c-gold-bright:#7ba2ae;
+    --c-gold-deep:  #2c4a54;
+
+    --c-sigil:      #5a6e7a;
+    --c-rune:       #6f8894;
+    --c-blood:      #9a3a2e;
+    --c-blood-soft: #b8584a;
+    --c-bone:       #e6ebee;
+    --c-iron:       #56697a;
+    --c-emerald:    #356056;
+    --c-lapis:      #284258;
+    --c-salt-thread:#2f9aab;
+
+    --c-chrome-bg:  rgba(216, 221, 226, 0.92);
+    --c-chrome-fg:  #2e3842;
+    --c-chrome-fg-dim: #66727c;
+    --c-chrome-line: rgba(46, 56, 66, 0.16);
+
+    --bg-stage:
+        radial-gradient(ellipse at center, #eef1f3 0%, #cfd6dc 62%, #b6c0c8 100%);
+    --bg-vignette:
+        radial-gradient(ellipse at center, transparent 38%, rgba(80,96,110,0.28) 100%);
+
+    --shadow-book:
+        0 32px 64px -18px rgba(40, 60, 76, 0.30),
+        0 14px 26px -8px rgba(40, 60, 76, 0.20),
+        0 0 0 1px rgba(63, 106, 120, 0.14);
+    --shadow-page: 0 2px 4px rgba(40, 60, 76, 0.10);
+    --glow-gold:   0 0 14px rgba(63, 106, 120, 0.18);
+
+    --act-esik:     #2f9aab;
+    --act-catlak:   #5a6e7a;
+    --act-usul:     #3f6a78;
+    --act-kampanya: #9a3a2e;
+    --act-kaybolma: #2c4a54;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   BOĞAZ GECESİ — Derin gece okuma. En karanlık sahne; dimmer soğuk
+   kâğıt (gece kamaşması azalır); en güçlü camgöbeği parıltı.
+   ════════════════════════════════════════════════════════════════ */
+[data-theme="gece-deniz"] {
+    --c-void:       #020407;
+    --c-shadow:     #05080d;
+    --c-deep:       #0a1119;
+    --c-bark:       #101a25;
+    --c-rust:       #14110d;
+    --c-ember:      #243441;
+    --c-flame:      #3e5e72;
+
+    --c-page:       #d0d6db;       /* Gece için dimmer soğuk kâğıt */
+    --c-page-dim:   #bcc4ca;
+    --c-page-edge:  #98a4ac;
+    --c-page-fold:  #50606c;
+    --c-vellum:     #d8dde2;
+
+    --c-ink:        #11161c;
+    --c-ink-soft:   #28333d;
+    --c-ink-quote:  #355460;
+
+    --c-gold:       #56b0c2;        /* Gecede daha parlak camgöbeği */
+    --c-gold-soft:  #7cc6d4;
+    --c-gold-bright:#a6dde7;
+    --c-gold-deep:  #2f5862;
+
+    --c-sigil:      #6a8693;
+    --c-rune:       #8caeb9;
+    --c-blood:      #b04434;
+    --c-blood-soft: #c8604e;
+    --c-bone:       #d4dade;
+    --c-iron:       #1a2c3e;
+    --c-emerald:    #1e4a3e;
+    --c-lapis:      #0e2440;         /* Tema kalbi */
+    --c-salt-thread:#5fd0e2;
+
+    --c-chrome-bg:  rgba(2, 4, 7, 0.90);
+    --c-chrome-fg:  #a4b4be;
+    --c-chrome-fg-dim: #566570;
+    --c-chrome-line: rgba(86, 176, 194, 0.18);
+
+    --bg-stage:
+        radial-gradient(ellipse at center, #0a1119 0%, #05080d 60%, #010204 100%);
+    --bg-vignette:
+        radial-gradient(ellipse at center, transparent 26%, rgba(0,0,0,0.92) 100%);
+
+    --shadow-book:
+        0 32px 64px -18px rgba(0,0,0,0.90),
+        0 14px 26px -8px rgba(0,0,0,0.70),
+        0 0 0 1px rgba(86, 176, 194, 0.12);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.34);
+    --glow-gold:   0 0 20px rgba(95, 208, 226, 0.28);
+
+    --act-esik:     #5fd0e2;
+    --act-catlak:   #6a8693;
+    --act-usul:     #56b0c2;
+    --act-kampanya: #b04434;
+    --act-kaybolma: #2f5862;
+}

@@ -1,0 +1,55 @@
+# SARMAŞIK · NAZAR — NİHAİ Kapak Promptları (GPT Images 2.0) · Ön + Arka
+
+> **Bu dosya, `cover-prompts/` altındaki keşif setinin yerini alan NİHAİ sürümdür.**
+> **GPT Images 2.0:** doğal-dil; MJ `--ar` yok. Oran `size` ile **portre 2:3 (1024×1536)**.
+> **🚨 EN KRİTİK KURAL — GÖRSELE HİÇBİR METİN GÖMÜLMEYECEK.** Bu kitabın MEVCUT entegre kapakları yanlış/yer-tutucu metin içeriyordu (ön kapakta **"SPACE"**, arka kapakta **"IVY"**, kurgusal yazar **"Daniel Marlowe"**). Bu set tam da onları değiştirmek için var: başlık **"NAZAR"** / seri **"SARMAŞIK"** ve yazar adı **motorda/dizgide** eklenecek. Her promptta açıkça: *"absolutely no text, no letters, no title, no author name, no blurb; leave clean areas for typography."*
+
+## A. Çekirdek duygusal kimlik
+**Siber-noir gözetim tekno-mit / politik tekno-gerilim.** Her şeyi gören bir gözetim devleti ve onun göremediği tek "boşluk." Çekirdek metafor: **GÖZ → BOŞLUK** (gören sistem; göremediği kör nokta). İkincil motif: **SARMAŞIK** (her şeyi saran, kesilince yeniden süren). Ton: **soğuk, ölçülü, prestijli, uğursuz** — neon-cyberpunk değil; sunucu ışığı + sodyum lambası + yağmur.
+
+## B. Görsel gramer
+- **Palet:** void-siyahı `#05080c`; çelik-mavisi `#44586a`; **sinyal camgöbeği** (tek soğuk aksan) `#4fbcce`/`#5fd0e2`; sodyum/şehir kehribarı (tek sıcak karşı-aksan) `#c8923c`; kemik beyazı `#dde3e8`; alarm pası (çok az) `#a23b30`. Düşük doygunluk, yüksek kontrast, soğuk taban.
+- **Işık:** soğuk sunucu/ekran ışığı + uzak sodyum şehir parıltısı; hacimsel yağmur ışığı.
+- **Sembol:** gözetim açıklığına (kamera diyaframı/aperture) dönüşmüş bir göz, **merkezinde ışık yutan kapkara bir boşluk** (kör nokta/boşluk); panoptikon metropolü (boğaz, köprü, kuleler — soyut); kameraların görmediği "kör şerit"te yalnız bir figür; sarmaşığın sardığı gözetim kulesi; tarama satırları, yağmur.
+- **Malzeme/doku:** ince film greni, hafif tarama-satırı dokusu, ıslak asfalt yansıması; sinematik, prestijli.
+- **Ton:** soğuk, sessiz, tehditkâr; "her şey izleniyor — görmedikleri hariç."
+- **Tipografi rezerv alanı:** alt-orta bant (başlık) + üst (taglines, istenirse).
+- **Gerçekçilik/sembol oranı:** ~%55 gerçekçi-sinematik / %45 sembolik.
+
+## C. Ön kapak konsepti
+Tek güçlü ikon (gözetim-açıklığı-göz + merkezdeki boşluk) **ya da** kör-şeritteki yalnız figür, panoptikon kentle. Soğuk, ikonik, tema-saf. **Metinsiz** (başlık dizgide).
+
+## D. Arka kapak konsepti
+Aynı gözetim dünyasının "öteki yüzü": panoptikon kent ufku + kenarlardan tırmanan sarmaşık, ya da kapanan diyafram/boşluk reversi — ön kapağın siber-noir devamı + alttan geniş **blurb rezerv alanı.** Fiziksel ciltin arka tahtası; koleksiyonluk.
+
+---
+
+### ÖN KAPAK — Prompt A (Kanonik / Çekirdek Kimlik)
+**TR:** Sinematik, prestijli yakın-gelecek tekno-gerilim kitap kapağı, dikey 2:3 portre. Üst yarıda devasa, simetrik bir göz — ama göz bir gözetim kamerası diyaframına/aperture'a dönüşmüş: iç içe metalik halkalar, ince diyafram bıçakları ve tam merkezde mat, ışık yutan kapkara bir boşluk (kör nokta). Gözün dış hattı badem biçimli, soğuk çelik-camgöbeği ince çizgi. Alt yarıda, ağır yağmur ve sis altında uzak bir gözetim metropolü (çelik kuleler, asma köprü silüeti, su üzerinde titreşen soluk ışıklar); şehirle göz arasında çok küçük, sırtı dönük yalnız bir figür, neredeyse karanlığa karışmış. Void-siyahı + çelik-mavisi taban, tek soğuk camgöbeği sinyal aksanı, uzakta tek sıcak sodyum-kehribarı parıltı. Yüksek kontrast, düşük doygunluk, ince film greni, hafif tarama-satırı dokusu. Alt-orta bandında başlık için temiz negatif boşluk. **Kesinlikle metinsiz; harf, başlık, yazar adı yok.**
+**EN (render-ready):** Cinematic prestige near-future techno-thriller book cover, vertical 2:3 portrait. Upper half: a vast symmetrical eye turned into a surveillance-camera aperture — concentric metallic rings, fine diaphragm blades, and at the exact center a matte, light-swallowing pure-black void (a blind spot); almond eye outline in cold steel-cyan thin line. Lower half: under heavy rain and mist, a distant surveillance metropolis (steel towers, a suspension-bridge silhouette, faint lights trembling over water); between city and eye, a very small lone figure seen from behind, almost dissolving into the dark. Void-black + steel-blue base, one cold cyan signal accent, one distant warm sodium-amber glow. High contrast, low saturation, fine grain, subtle scan-line texture. Clean negative space in the lower-center band for the title. Absolutely no text, no letters, no title, no author name.
+**Renk:** void-siyahı + çelik + sinyal camgöbeği + tek sodyum kehribar · **Tipografi alanı:** alt-orta (başlık) + üst (tagline) · **Oran:** 2:3 (1024×1536) · **Kaçın:** neon-cyberpunk klişesi, gömülü/uydurma başlık ("SPACE"/"IVY"), sahte yazar adı, çiğ renk, kalabalık, yüz yakın çekimi, çizgi-roman parlaklığı, plastik 3B render.
+
+### ÖN KAPAK — Prompt B (Sinematik / Kör Şerit)
+**TR:** Atmosferik, prestij tekno-gerilim kapağı, dikey 2:3 portre. Gece, yağmurlu bir gözetim kenti; dar bir cadde yukarıdan hafif eğik. Duvarlarda/direklerde çok sayıda gözetim kamerası; her birinin soluk görüş konisi ıslak kaldırıma düşüyor. Kameraların göremediği dar, karanlık bir şerit kaldırım boyunca uzanıyor; tam o şeritte, sırtı dönük, omuzları çökük, yorgun tek bir adam yürüyor — neredeyse görünmez. Islak asfaltta soğuk camgöbeği ve uzak sodyum-kehribarı yansımalar. Yoğun ince yağmur, hacimsel ışık, sis. Void-siyahı + derin lapis, tek camgöbeği parıltı, seyrek sıcak pencere ışıkları. Yüksek kontrast, düşük doygunluk, ince film greni. Üstte başlık için sisli boşluk. **Metinsiz.**
+**EN (render-ready):** Atmospheric prestige techno-thriller cover, vertical 2:3 portrait. Night, a rainy surveillance city; a narrow street from a slightly high angle. Many surveillance cameras on walls/poles, each pale view-cone on the wet pavement; a narrow dark strip the cameras cannot see runs along the sidewalk; exactly in that strip a single weary man walks away from us, shoulders sunken, almost invisible. Cold cyan and distant sodium-amber reflections on wet asphalt. Heavy fine rain, volumetric light, mist. Void-black + deep lapis, one cyan glow, sparse warm window lights. High contrast, low saturation, fine grain. Misty negative space at top for the title. No text, no lettering, no author name.
+**Renk:** void-siyahı + lapis + camgöbeği + sodyum · **Tipografi alanı:** üst sis · **Oran:** 2:3 (1024×1536) · **Kaçın:** aksiyon pozu/silah, neon abartı, gömülü metin, sahte yazar, tanınır gerçek şehir/marka, plastik render.
+
+### ÖN KAPAK — Prompt C (Sembolik / Sarmaşık)
+**TR:** Edebi-sembolik tekno-gerilim kapağı, dikey 2:3 portre. Sisli gecede tek bir gözetim/anten kulesi silüeti; çelik gövdesini ince, yarı-canlı bir **sarmaşık** sarıyor — yapraklar ve damarlar kablolarla iç içe, organik ile teknoloji arasında (sistemin sessizce her yeri sarması). Soğuk camgöbeği bir arka ışık kuleyi hafifçe çevreliyor; tepede küçük kırmızı bir uyarı/anten ışığı (tek pas-kırmızısı nokta). Ağır sis, hacimsel ışık, ince grain. Void-siyahı, çelik, tek camgöbeği aksan, tek pas-kırmızısı nokta. Geniş koyu gök başlık için. Ölçülü, uğursuz, prestijli. **Metinsiz.**
+**EN (render-ready):** Literary-symbolic techno-thriller cover, vertical 2:3 portrait. In misty night, the silhouette of a single surveillance/antenna tower; its steel body wrapped by a thin, half-living ivy — leaves and tendrils interwoven with cables, between organic and technological (the system quietly covering everything). A cold cyan backlight faintly haloes the tower; a small red warning/antenna light at the top (one rust-red point). Heavy mist, volumetric light, fine grain. Void-black, steel, one cyan accent, one rust-red point. Generous dark sky for the title. Restrained, ominous, prestige. No text.
+**Renk:** void-siyahı + çelik + camgöbeği + tek pas-kırmızısı · **Tipografi alanı:** geniş koyu gök · **Oran:** 2:3 (1024×1536) · **Kaçın:** aşırı sembol karmaşası, neon, gömülü metin, sahte yazar, plastik render.
+
+### ARKA KAPAK — Prompt A (Devam / Arka Tahta)
+**TR:** Fiziksel bir tekno-gerilim cildinin arka kapağı, dikey 2:3 portre. Ön kapağın siber-noir dünyasının devamı: yağmur ve sis altında uzak bir panoptikon kent ufku (kuleler, asma köprü), gökte çok soluk tarama satırları; kenarlardan içeri tırmanan ince **sarmaşık** damarları (kabloyla iç içe). Üst üçlükte uğursuz dinginlik; alt **üçte iki temiz void-siyahı/çelik rezerv alan, arka-kapak metni için** (sodyum-kehribarı çok hafif bir taban ışığı okunabilirliğe yardımcı). Ön kapakla aynı palet, daha sessiz. Koleksiyonluk. **Metinsiz.**
+**EN (render-ready):** Back cover of a physical techno-thriller volume, vertical 2:3 portrait. A continuation of the front's cyber-noir world: under rain and mist, a distant panopticon city skyline (towers, suspension bridge), very faint scan-lines in the sky; thin ivy tendrils (interwoven with cables) creeping in from the edges. Ominous calm in the top third; the lower two-thirds a clean void-black/steel reserve area for the back-cover blurb (a very faint sodium-amber base glow aiding legibility). Same palette as the front, quieter. Collectible. No text, no lettering.
+**Renk:** ön kapakla aynı (void-siyahı + çelik + camgöbeği + sodyum) · **Tipografi alanı:** alt 2/3 (blurb) · **Oran:** 2:3 (1024×1536) · **Kaçın:** ikinci poster, neon abartı, gömülü metin, sahte yazar/blurb, kalabalık.
+
+### ARKA KAPAK — Prompt B (Minimal — Kapanan Diyafram)
+**TR:** Minimal, sembolik arka kapak, dikey 2:3 portre. Void-siyahı zeminde, üstte ortalanmış, **kapanmakta olan bir kamera diyaframı / iris**; merkezde büyüyen kapkara bir boşluk; tek ince camgöbeği sinyal damarı yatay geçip merkezde kayboluyor. Çevrede çok soluk tarama satırları. Geniş, sade alt alan blurb için. Ön kapakla aynı dünya — "cilt sırtının eşi". Soğuk, ölçülü, yüksek kontrast, ince grain. **Metinsiz.**
+**EN (render-ready):** Minimal symbolic back cover, vertical 2:3 portrait. On a void-black ground, a closing camera diaphragm / iris centered at the top, a growing pure-black void at its center; one thin cyan signal-thread crosses horizontally and vanishes into the void. Very faint scan-lines around. A wide simple lower area for the blurb. Same world as the front — a "spine-mate". Cold, restrained, high contrast, fine grain. No text.
+**Renk:** void-siyahı + çelik + tek camgöbeği · **Tipografi alanı:** alt geniş · **Oran:** 2:3 (1024×1536) · **Kaçın:** neon, kalabalık, gömülü metin, sahte yazar, plastik render.
+
+---
+
+## Global kurallar
+**ASLA gömülü metin/başlık/yazar adı/blurb** (mevcut "SPACE"/"IVY"/"Daniel Marlowe" hatası tekrarlanmayacak) · premium fiziksel-kitap kapağı (poster değil) · soğuk, ölçülü, prestijli (neon-cyberpunk değil) · GÖZ→BOŞLUK metaforu + sarmaşık motifi · ön+arka aynı void/çelik/camgöbeği paleti · ince grain + tarama-satırı dokusu, düşük doygunluk, yüksek kontrast. **Kaçın:** neon-cyborg/cyberpunk klişesi, jenerik aksiyon posteri, kalabalık, silah/aksiyon pozu, yüz yakın çekimi, çizgi-roman parlaklığı, tanınır gerçek şehir/marka, plastik 3B render, gömülü/bozuk metin, sahte yazar adı.

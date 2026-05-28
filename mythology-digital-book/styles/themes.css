@@ -1,0 +1,212 @@
+/* ════════════════════════════════════════════════════════════════
+   THEMES — palettes for the codex
+   Three moods: midnight (default), parchment (daylight), obsidian
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* Type scale (modular, 1.25 ratio anchored at 16px) */
+    --t-xs:    0.75rem;
+    --t-sm:    0.875rem;
+    --t-base:  1rem;
+    --t-md:    1.125rem;
+    --t-lg:    1.35rem;
+    --t-xl:    1.7rem;
+    --t-2xl:   2.15rem;
+    --t-3xl:   2.85rem;
+    --t-4xl:   3.75rem;
+    --t-5xl:   5rem;
+
+    /* Reading-area type scaling (multiplied by user pref step) */
+    --reader-scale: 1;
+
+    /* Spacing rhythm */
+    --s-1: 0.25rem;
+    --s-2: 0.5rem;
+    --s-3: 0.75rem;
+    --s-4: 1rem;
+    --s-5: 1.5rem;
+    --s-6: 2rem;
+    --s-7: 3rem;
+    --s-8: 4.5rem;
+    --s-9: 6rem;
+
+    /* Animation curves */
+    --ease-page:    cubic-bezier(0.6, 0.05, 0.3, 1);
+    --ease-veil:    cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-soft:    cubic-bezier(0.4, 0.1, 0.3, 1);
+
+    /* Durations */
+    --d-page: 900ms;
+    --d-quick: 220ms;
+    --d-medium: 480ms;
+    --d-slow: 1100ms;
+}
+
+/* ─── MIDNIGHT (default) — deep umber, candlelit gold ─── */
+[data-theme="midnight"] {
+    --c-void:       #08060a;
+    --c-shadow:     #120c10;
+    --c-deep:       #1c1410;
+    --c-bark:       #2a1f17;
+    --c-rust:       #4a2f1c;
+    --c-ember:      #8a4a1f;
+    --c-flame:      #c97a3c;
+
+    --c-page:       #f3e6c8;
+    --c-page-dim:   #e6d4ad;
+    --c-page-edge:  #c8b07a;
+    --c-page-fold:  #9a8458;
+    --c-vellum:     #f8eed4;
+
+    --c-ink:        #1c1410;
+    --c-ink-soft:   #3a2a1d;
+    --c-ink-quote:  #5e4528;
+
+    --c-gold:       #c9a14a;
+    --c-gold-soft:  #d9b96b;
+    --c-gold-bright:#f5d98a;
+    --c-gold-deep:  #8a6f2c;
+
+    --c-sigil:      #b8943c;
+    --c-rune:       #d4a955;
+    --c-blood:      #7a1f1f;
+    --c-emerald:    #2d5a3a;
+    --c-lapis:      #1c3a5c;
+
+    --c-chrome-bg:  rgba(8, 6, 10, 0.78);
+    --c-chrome-fg:  #d9c598;
+    --c-chrome-fg-dim: #8c7a52;
+    --c-chrome-line: rgba(201, 161, 74, 0.22);
+
+    --bg-stage: radial-gradient(ellipse at center, #1a1108 0%, #0a0604 55%, #050302 100%);
+    --bg-vignette: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.8) 100%);
+
+    /* PERF: dropped the inset 80px blur (huge paint cost on the book wrapper);
+       also reduced outer shadow radius from 120px → 60px. The shape still
+       reads as a deep table-top shadow but renders ~3× faster. */
+    --shadow-book: 0 30px 60px -15px rgba(0,0,0,0.75), 0 12px 24px -6px rgba(0,0,0,0.5);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.15);
+    --glow-gold:   0 0 12px rgba(201, 161, 74, 0.3);
+}
+
+/* ─── PARCHMENT — daylight reading ─── */
+[data-theme="parchment"] {
+    --c-void:       #d8c8a0;
+    --c-shadow:     #c4b288;
+    --c-deep:       #b09c70;
+    --c-bark:       #8a7548;
+    --c-rust:       #6a5430;
+    --c-ember:      #8a4a1f;
+    --c-flame:      #b8682c;
+
+    --c-page:       #f8eed4;
+    --c-page-dim:   #ede0bb;
+    --c-page-edge:  #c8b07a;
+    --c-page-fold:  #9a8458;
+    --c-vellum:     #fdf6e2;
+
+    --c-ink:        #2a1d12;
+    --c-ink-soft:   #4a3624;
+    --c-ink-quote:  #6a4f30;
+
+    --c-gold:       #a8843a;
+    --c-gold-soft:  #b89a55;
+    --c-gold-bright:#d4a955;
+    --c-gold-deep:  #6a5224;
+
+    --c-sigil:      #8a6f2c;
+    --c-rune:       #a8843a;
+    --c-blood:      #7a1f1f;
+    --c-emerald:    #2d5a3a;
+    --c-lapis:      #1c3a5c;
+
+    --c-chrome-bg:  rgba(248, 238, 212, 0.92);
+    --c-chrome-fg:  #4a3624;
+    --c-chrome-fg-dim: #8a7548;
+    --c-chrome-line: rgba(106, 82, 36, 0.28);
+
+    --bg-stage: radial-gradient(ellipse at center, #f0e0b8 0%, #d8c490 55%, #b8a06a 100%);
+    --bg-vignette: radial-gradient(ellipse at center, transparent 35%, rgba(80,60,30,0.35) 100%);
+
+    --shadow-book: 0 28px 56px -16px rgba(60,40,15,0.4), 0 10px 20px -6px rgba(60,40,15,0.28);
+    --shadow-page: 0 2px 4px rgba(80,60,30,0.12);
+    --glow-gold:   0 0 12px rgba(168, 132, 58, 0.28);
+}
+
+/* ─── OBSIDIAN — moonlit, cool blacks ─── */
+[data-theme="obsidian"] {
+    --c-void:       #04060a;
+    --c-shadow:     #0a0d14;
+    --c-deep:       #11151e;
+    --c-bark:       #1a2030;
+    --c-rust:       #2a3548;
+    --c-ember:      #4a5a78;
+    --c-flame:      #7a8db0;
+
+    --c-page:       #d8d4cc;
+    --c-page-dim:   #bcb6a8;
+    --c-page-edge:  #88847a;
+    --c-page-fold:  #5e5a52;
+    --c-vellum:     #e0dcd2;
+
+    --c-ink:        #0c0e14;
+    --c-ink-soft:   #2a2d36;
+    --c-ink-quote:  #44485a;
+
+    --c-gold:       #8a9bb8;
+    --c-gold-soft:  #a4b4cc;
+    --c-gold-bright:#c8d4e6;
+    --c-gold-deep:  #4a5a78;
+
+    --c-sigil:      #6a7a98;
+    --c-rune:       #8aa0c0;
+    --c-blood:      #7a3a3a;
+    --c-emerald:    #3a6a52;
+    --c-lapis:      #2a4878;
+
+    --c-chrome-bg:  rgba(4, 6, 10, 0.82);
+    --c-chrome-fg:  #b8c4d8;
+    --c-chrome-fg-dim: #6a7488;
+    --c-chrome-line: rgba(138, 155, 184, 0.22);
+
+    --bg-stage: radial-gradient(ellipse at center, #0e1424 0%, #060810 55%, #02030608 100%);
+    --bg-vignette: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.85) 100%);
+
+    --shadow-book: 0 30px 60px -15px rgba(0,0,0,0.85), 0 12px 24px -6px rgba(0,0,0,0.6);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.2);
+    --glow-gold:   0 0 12px rgba(138, 155, 184, 0.28);
+}
+
+/* ─── CIVILIZATION ACCENT COLORS ─── */
+:root {
+    --civ-greek:        #c9a14a;
+    --civ-egyptian:     #d4823a;
+    --civ-norse:        #6a8aa8;
+    --civ-japanese:     #b03e3e;
+    --civ-hindu:        #d4a040;
+    --civ-celtic:       #4a8a5a;
+    --civ-mesopotamian: #b08a3a;
+    --civ-aztec:        #c75a3a;
+    --civ-roman:        #8a3838;
+    --civ-chinese:      #c43a3a;
+    --civ-korean:       #4a6aa8;
+    --civ-mayan:        #3a8a6a;
+    --civ-slavic:       #6a4a8a;
+    --civ-african:      #b8843a;
+    --civ-persian:      #2a6a8a;
+    --civ-polynesian:   #2a8a8a;
+    --civ-inuit:        #6a8aa8;
+    --civ-turkish:      #2a4a7a;
+    --civ-arabian:      #8a6a3a;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --d-page: 0ms;
+        --d-quick: 0ms;
+        --d-medium: 0ms;
+        --d-slow: 0ms;
+    }
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="description" content="Fabl — bağımsız okunabilen kısa fabller derlemesi. Küçük hikâyeler, açık bir çekirdek, sakin ve hafif şiirsel bir ton. Etkileşimli dijital kodeks." />
+    <meta name="theme-color" content="#0e161d" />
+    <title>Fabl · Küçük Masallar</title>
+
+    <!-- Kitap kimliği / paylaşım görseli (yayın alan adı belli olunca mutlak URL'ye çevrilebilir) -->
+    <meta property="og:type" content="book" />
+    <meta property="og:title" content="Fabl · Küçük Masallar" />
+    <meta property="og:description" content="Bağımsız okunabilen kısa fabller derlemesi. Küçük hikâyeler, açık bir çekirdek, sakin bir ton." />
+    <meta property="og:image" content="assets/cover.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:wght@400;500&family=Inter:wght@300;400;500&family=Marcellus&display=swap" rel="stylesheet" />
+
+    <!-- Kapak görselini erkenden getir (eşik hızlı boyansın) -->
+    <link rel="preload" as="image" href="assets/cover.webp" type="image/webp" fetchpriority="high" />
+
+    <link rel="stylesheet" href="styles/themes.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/animations.css" />
+    <link rel="stylesheet" href="styles/cover.css" />
+
+    <!-- Düşük güç modu tespiti — ilk boyamadan önce uygulanır. -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('fabl:v1:perfMode');
+                var mode = saved ? JSON.parse(saved) : null;
+                if (mode === null) {
+                    var nav = window.navigator || {};
+                    var cores = nav.hardwareConcurrency || 4;
+                    var mem = nav.deviceMemory || 4;
+                    var coarse = matchMedia && matchMedia('(any-pointer: coarse)').matches;
+                    var smallish = window.innerWidth < 900;
+                    var reduce = matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    mode = (cores <= 4 || mem <= 4 || (coarse && smallish) || reduce) ? 'lite' : 'rich';
+                }
+                document.documentElement.dataset.perf = mode;
+            } catch (e) {
+                document.documentElement.dataset.perf = 'rich';
+            }
+        })();
+    </script>
+</head>
+<body class="is-loading" data-theme="sabah">
+
+    <!-- ════════════ GİRİŞ EŞİĞİ — KAPAK (kodeks bunun ardında, görünmeden kurulur) ════════════ -->
+    <div id="cover-gate" class="cover-gate" role="dialog" aria-modal="true" aria-label="Fabl — kapak">
+        <button id="cover-open" class="book3d" type="button" aria-label="Fabl — kitabı aç">
+            <span class="book3d__inside" aria-hidden="true"></span>
+            <span class="book3d__page" aria-hidden="true"></span>
+            <span class="book3d__leaf">
+                <picture>
+                    <source srcset="assets/cover.webp" type="image/webp" />
+                    <img class="book3d__cover" src="assets/cover.jpg"
+                         width="1054" height="1492"
+                         alt="Fabl — Küçük Masallar. Kitabın kapağı: gün doğumunda dağda bir şato, altın bir ağaç işlemeli kitap, taç ve kılıç."
+                         decoding="async" fetchpriority="high" />
+                </picture>
+                <span class="book3d__spine" aria-hidden="true"></span>
+                <span class="book3d__peel" aria-hidden="true"></span>
+            </span>
+            <span class="book3d__ribbon" aria-hidden="true"></span>
+        </button>
+        <div class="cover-gate__cue" aria-hidden="true">
+            <svg viewBox="0 0 40 28" width="34" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round">
+                <path d="M20 6 C14 2 6 2 2 5 L2 23 C6 20 14 20 20 24 C26 20 34 20 38 23 L38 5 C34 2 26 2 20 6 Z" />
+                <path d="M20 6 L20 24" />
+            </svg>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var b = document.body,
+                gate = document.getElementById('cover-gate'),
+                openBtn = document.getElementById('cover-open');
+            var navKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown',
+                           'Home', 'End', ' ', 'f', 'F', 'k', 'K', 'i', 'I', 'İ', 't', 'T', 'y', 'Y', 'p', 'P'];
+            function enter() {
+                if (b.classList.contains('is-entered')) return;
+                b.classList.add('is-entered');
+                var book = document.getElementById('book');
+                if (book) { try { book.focus({ preventScroll: true }); } catch (e) {} }
+                // Geçiş bitince eşiği erişilebilirlik ağacından çıkar
+                setTimeout(function () { if (gate) gate.setAttribute('aria-hidden', 'true'); }, 650);
+            }
+            if (openBtn) openBtn.addEventListener('click', function (e) { e.stopPropagation(); enter(); });
+            if (gate) gate.addEventListener('click', enter);   // kapağa dokunmak da açar
+            // Eşik açıkken, kodeksin klavye gezinmesini perde arkasında dondur
+            document.addEventListener('keydown', function (e) {
+                if (b.classList.contains('is-entered')) return;
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); enter(); return; }
+                if (navKeys.indexOf(e.key) !== -1) { e.stopPropagation(); }
+            }, true);
+            try { if (openBtn) openBtn.focus({ preventScroll: true }); } catch (e) {}
+        })();
+    </script>
+
+    <!-- ════════════ AÇILIŞ — SABAH ════════════ -->
+    <div id="loader" class="loader" aria-hidden="true">
+        <div class="loader__sigil">
+            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                    <radialGradient id="dawnGlow" cx="50%" cy="58%" r="55%">
+                        <stop offset="0%" stop-color="#e9cd8e" stop-opacity="0.95" />
+                        <stop offset="50%" stop-color="#caa260" stop-opacity="0.6" />
+                        <stop offset="100%" stop-color="#6e8694" stop-opacity="0.08" />
+                    </radialGradient>
+                    <linearGradient id="dawnLine" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#6e8694" stop-opacity="0" />
+                        <stop offset="50%" stop-color="#9ab0bc" />
+                        <stop offset="100%" stop-color="#6e8694" stop-opacity="0" />
+                    </linearGradient>
+                </defs>
+                <!-- Şafak: yükselen güneş, ufuk, tek kuş -->
+                <g transform="translate(60 60)">
+                    <circle cx="0" cy="8" r="26" fill="url(#dawnGlow)"/>
+                    <circle cx="0" cy="8" r="15" fill="none" stroke="#d9b977" stroke-width="0.5" opacity="0.6"/>
+                    <line x1="-46" y1="22" x2="46" y2="22" stroke="url(#dawnLine)" stroke-width="1"/>
+                    <path d="M -26 -22 q 6 -6 11 0 q 5 -6 11 0" fill="none" stroke="#9ab0bc" stroke-width="1" opacity="0.8" stroke-linecap="round"/>
+                </g>
+            </svg>
+        </div>
+        <p class="loader__text">Sabah ediyor…</p>
+    </div>
+
+    <!-- ════════════ ATMOSFER ════════════ -->
+    <div class="ambient" aria-hidden="true">
+        <div class="ambient__vignette"></div>
+        <div class="ambient__sea"></div>
+        <div class="ambient__mist"></div>
+    </div>
+
+    <!-- ════════════ ÜST ÇERÇEVE ════════════ -->
+    <header class="chrome chrome--top" role="banner">
+        <div class="chrome__brand">
+            <span class="chrome__monogram" aria-hidden="true">❧</span>
+            <span class="chrome__title">Fabl</span>
+        </div>
+        <div class="chrome__actions">
+            <button class="chrome__btn" id="btn-toc" type="button" aria-label="Fihrist'i aç" title="Fihrist (F)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-bookmark" type="button" aria-label="Bu sayfaya iz koy" title="İz koy (K)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M6 3h12v18l-6-4-6 4z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-bookmarks" type="button" aria-label="İzleri aç" title="İzler (İ)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M5 3h14v18l-7-4.5L5 21z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-theme" type="button" aria-label="Atmosfer temasını değiştir" title="Tema (T)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A8 8 0 0 1 12 2z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-font" type="button" aria-label="Yazı boyutunu değiştir" title="Yazı (Y)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><text x="4" y="18" font-family="serif" font-weight="700" font-size="18" fill="currentColor">Aa</text></svg>
+            </button>
+            <button class="chrome__btn" id="btn-perf" type="button" aria-label="Performans modunu değiştir" title="Performans (P)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M13 2 3 14h7l-1 8 11-13h-7z"/></svg>
+            </button>
+            <button class="chrome__btn" id="btn-fullscreen" type="button" aria-label="Tam ekranda oku" title="Tam Ekran (E)">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M4 4h6v2H6v4H4zm10 0h6v6h-2V6h-4zM4 14h2v4h4v2H4zm14 0h2v6h-6v-2h4z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- ════════════ KÜRSÜ — FABL ════════════ -->
+    <main class="stage" id="stage" role="main" aria-label="Fabl okuma kürsüsü">
+        <div class="stage__pedestal" aria-hidden="true"></div>
+
+        <div class="book" id="book" aria-roledescription="interaktif fabl derlemesi" tabindex="0">
+            <div class="book__shadow" aria-hidden="true"></div>
+
+            <!-- Sayfalar book.js tarafından buraya bağlanır -->
+            <div class="book__pages" id="book-pages"></div>
+
+            <!-- Çevirme alanları -->
+            <button class="book__edge book__edge--left" id="edge-prev" type="button" aria-label="Önceki sayfa">
+                <span class="book__edge-arrow" aria-hidden="true">‹</span>
+            </button>
+            <button class="book__edge book__edge--right" id="edge-next" type="button" aria-label="Sonraki sayfa">
+                <span class="book__edge-arrow" aria-hidden="true">›</span>
+            </button>
+
+            <!-- İz şeridi -->
+            <div class="book__ribbon" id="book-ribbon" aria-hidden="true"></div>
+        </div>
+    </main>
+
+    <!-- ════════════ ALT ÇERÇEVE ════════════ -->
+    <footer class="chrome chrome--bottom" role="contentinfo">
+        <button class="chrome__nav" id="btn-prev" type="button" aria-label="Önceki açılış">
+            <span aria-hidden="true">◂</span><span class="chrome__nav-label">Önceki</span>
+        </button>
+
+        <div class="chrome__progress" aria-label="Okuma ilerlemesi">
+            <div class="chrome__chapter" id="chapter-label">—</div>
+            <div class="chrome__bar"><div class="chrome__bar-fill" id="progress-fill"></div></div>
+            <div class="chrome__pages"><span id="page-current">1</span> <span class="chrome__sep">/</span> <span id="page-total">1</span></div>
+        </div>
+
+        <button class="chrome__nav" id="btn-next" type="button" aria-label="Sonraki açılış">
+            <span class="chrome__nav-label">Sonraki</span><span aria-hidden="true">▸</span>
+        </button>
+    </footer>
+
+    <!-- ════════════ FİHRİST KAPISI ════════════ -->
+    <aside class="drawer" id="toc-drawer" aria-hidden="true" aria-labelledby="toc-title">
+        <div class="drawer__scrim" data-drawer-close></div>
+        <div class="drawer__panel" role="dialog" aria-modal="true">
+            <header class="drawer__head">
+                <h2 id="toc-title" class="drawer__title">Fihrist</h2>
+                <button class="drawer__close" type="button" aria-label="Kapat" data-drawer-close>×</button>
+            </header>
+
+            <div class="drawer__filters" id="toc-filters" role="tablist" aria-label="Kümeye göre süz"></div>
+
+            <div class="drawer__search">
+                <input type="search" id="toc-search" placeholder="Fabllarda ara…" aria-label="Fabllarda ara" autocomplete="off" />
+            </div>
+
+            <nav class="drawer__list" id="toc-list" aria-label="Fabller"></nav>
+        </div>
+    </aside>
+
+    <!-- ════════════ İZLER KAPISI ════════════ -->
+    <aside class="drawer drawer--right" id="bookmarks-drawer" aria-hidden="true" aria-labelledby="bm-title">
+        <div class="drawer__scrim" data-drawer-close></div>
+        <div class="drawer__panel" role="dialog" aria-modal="true">
+            <header class="drawer__head">
+                <h2 id="bm-title" class="drawer__title">İz Düşülmüş Sayfalar</h2>
+                <button class="drawer__close" type="button" aria-label="Kapat" data-drawer-close>×</button>
+            </header>
+            <div class="drawer__list" id="bookmarks-list"></div>
+        </div>
+    </aside>
+
+    <!-- ════════════ TOAST ════════════ -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- ════════════ KLAVYE İPUCU ════════════ -->
+    <div class="hint" id="hint" aria-hidden="true">
+        <span><kbd>←</kbd><kbd>→</kbd> sayfa</span>
+        <span><kbd>F</kbd> fihrist</span>
+        <span><kbd>K</kbd> iz koy</span>
+        <span><kbd>E</kbd> tam ekran</span>
+    </div>
+
+    <!-- ════════════ DOSYALAR ════════════ -->
+    <script src="content/novel-data.js"></script>
+    <script src="content/fable-01.js"></script>
+    <script src="content/fable-02.js"></script>
+    <script src="content/fable-03.js"></script>
+    <script src="content/fable-04.js"></script>
+    <script src="content/fable-05.js"></script>
+    <script src="content/fable-06.js"></script>
+    <script src="content/fable-07.js"></script>
+    <script src="content/fable-08.js"></script>
+    <script src="content/fable-09.js"></script>
+    <script src="content/fable-10.js"></script>
+    <script src="content/fable-11.js"></script>
+    <script src="content/fable-12.js"></script>
+    <script src="content/fable-13.js"></script>
+    <script src="content/fable-14.js"></script>
+    <script src="content/fable-15.js"></script>
+    <script src="content/fable-16.js"></script>
+    <script src="content/fable-17.js"></script>
+    <script src="content/fable-18.js"></script>
+    <script src="content/fable-19.js"></script>
+    <script src="content/fable-20.js"></script>
+    <script src="content/fable-21.js"></script>
+    <script src="content/fable-22.js"></script>
+    <script src="content/fable-23.js"></script>
+    <script src="content/fable-24.js"></script>
+    <script src="content/fable-25.js"></script>
+    <script src="content/fable-26.js"></script>
+    <script src="content/fable-27.js"></script>
+    <script src="content/fable-28.js"></script>
+    <script src="content/fable-29.js"></script>
+    <script src="content/fable-30.js"></script>
+    <script src="content/finalize.js"></script>
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/book.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>

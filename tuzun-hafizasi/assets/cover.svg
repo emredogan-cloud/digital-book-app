@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Tuzun Hafızası — kıyı romanı kapağı">
+  <title>Tuzun Hafızası</title>
+  <desc>Kıyı romanı kapağı. Tuz kristali, tek bir rüh-çizgi, gri-mavi sis. Story Bible Bölüm 12'deki simge sistemine bağlı.</desc>
+
+  <defs>
+    <!-- Atmosfer: kıyı sisi -->
+    <linearGradient id="bgMist" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%"   stop-color="#2a3a44" />
+      <stop offset="42%"  stop-color="#1a2a32" />
+      <stop offset="100%" stop-color="#0a1418" />
+    </linearGradient>
+
+    <radialGradient id="seaGlow" cx="50%" cy="52%" r="58%">
+      <stop offset="0%"   stop-color="#3a525e" stop-opacity="0.45" />
+      <stop offset="55%"  stop-color="#1c2a32" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0a1418" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Tuz kristali iç parlaması -->
+    <radialGradient id="saltCore" cx="50%" cy="48%" r="52%">
+      <stop offset="0%"   stop-color="#f1f4f6" stop-opacity="0.95" />
+      <stop offset="50%"  stop-color="#b6c4cc" stop-opacity="0.75" />
+      <stop offset="100%" stop-color="#3a4a52" stop-opacity="0.15" />
+    </radialGradient>
+
+    <!-- Rüh-çizgi: tek ince mineral damarı -->
+    <linearGradient id="ruhCizgi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#5a6e7a" />
+      <stop offset="45%"  stop-color="#c4d0d8" />
+      <stop offset="55%"  stop-color="#c4d0d8" />
+      <stop offset="100%" stop-color="#3a4a52" />
+    </linearGradient>
+
+    <!-- Sis dokusu için yumuşak partikül -->
+    <radialGradient id="mistDot" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#dde4e8" stop-opacity="0.32" />
+      <stop offset="100%" stop-color="#dde4e8" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Tuz tanesi yumuşak gölgesi -->
+    <radialGradient id="saltShadow" cx="50%" cy="92%" r="40%">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#000" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Ufuk çizgisi soluk parlaması -->
+    <linearGradient id="horizonGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#1a2a32" stop-opacity="0" />
+      <stop offset="50%"  stop-color="#8a9aa4" stop-opacity="0.42" />
+      <stop offset="100%" stop-color="#1a2a32" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Çerçeve düz desen -->
+    <pattern id="frameWeave" x="0" y="0" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="3" fill="none" />
+      <rect x="0" y="0" width="1" height="1" fill="#8c7a4a" opacity="0.32" />
+    </pattern>
+  </defs>
+
+  <!-- ═══════ ZEMİN ═══════ -->
+  <rect x="0" y="0" width="600" height="900" fill="url(#bgMist)" />
+  <rect x="0" y="0" width="600" height="900" fill="url(#seaGlow)" />
+
+  <!-- Ufuk çizgisi -->
+  <line x1="0" y1="520" x2="600" y2="520" stroke="url(#horizonGlow)" stroke-width="0.8" />
+  <line x1="0" y1="523" x2="600" y2="523" stroke="#3a4a52" stroke-width="0.6" opacity="0.5" />
+
+  <!-- Sis tabakaları -->
+  <g opacity="0.55">
+    <ellipse cx="120" cy="540" rx="220" ry="6" fill="#5a6e7a" opacity="0.18" />
+    <ellipse cx="460" cy="555" rx="280" ry="8" fill="#5a6e7a" opacity="0.14" />
+    <ellipse cx="300" cy="575" rx="320" ry="10" fill="#3a4a52" opacity="0.18" />
+  </g>
+
+  <!-- Toz / tuz zerrecikleri -->
+  <g opacity="0.5">
+    <circle cx="78"  cy="180" r="2.4" fill="url(#mistDot)" />
+    <circle cx="510" cy="120" r="1.6" fill="url(#mistDot)" />
+    <circle cx="220" cy="280" r="2.0" fill="url(#mistDot)" />
+    <circle cx="480" cy="320" r="1.4" fill="url(#mistDot)" />
+    <circle cx="140" cy="400" r="1.8" fill="url(#mistDot)" />
+    <circle cx="540" cy="450" r="2.2" fill="url(#mistDot)" />
+    <circle cx="92"  cy="700" r="1.6" fill="url(#mistDot)" />
+    <circle cx="500" cy="730" r="1.8" fill="url(#mistDot)" />
+    <circle cx="280" cy="780" r="1.2" fill="url(#mistDot)" />
+    <circle cx="380" cy="820" r="2.0" fill="url(#mistDot)" />
+  </g>
+
+  <!-- ═══════ ÇERÇEVE ═══════ -->
+  <rect x="36" y="36" width="528" height="828" fill="none" stroke="#8c7a4a" stroke-width="0.6" opacity="0.55" />
+  <rect x="44" y="44" width="512" height="812" fill="none" stroke="#8c7a4a" stroke-width="0.4" opacity="0.3" />
+
+  <!-- ═══════ SERİ MONOGRAMI ═══════ -->
+  <g font-family="Marcellus, 'EB Garamond', serif" fill="#9aaab2" letter-spacing="6">
+    <text x="300" y="120" text-anchor="middle" font-size="14" font-style="italic" opacity="0.78">
+      Vâliçe Kıyısı · Cilt-i Evvel
+    </text>
+  </g>
+
+  <!-- ═══════ TUZ KRİSTALİ ═══════ -->
+  <g transform="translate(300 410)">
+    <!-- Gölge -->
+    <ellipse cx="0" cy="160" rx="120" ry="14" fill="url(#saltShadow)" />
+
+    <!-- Ana kristal -->
+    <g>
+      <!-- Dış altıgen -->
+      <polygon points="0,-128 96,-46 96,54 0,128 -96,54 -96,-46"
+               fill="url(#saltCore)"
+               stroke="#7a8c98" stroke-width="0.9" opacity="0.92" />
+
+      <!-- İkinci katman (yarı şeffaf üst yüz) -->
+      <polygon points="0,-128 96,-46 0,8 -96,-46"
+               fill="#d6dde2" opacity="0.18" />
+
+      <!-- İç altıgen — daha küçük kristal -->
+      <polygon points="0,-72 56,-26 56,30 0,72 -56,30 -56,-26"
+               fill="none"
+               stroke="#a8b8c0" stroke-width="0.6" opacity="0.6" />
+
+      <!-- En iç kristal -->
+      <polygon points="0,-34 26,-12 26,14 0,34 -26,14 -26,-12"
+               fill="none"
+               stroke="#c4d0d8" stroke-width="0.4" opacity="0.45" />
+
+      <!-- Yan yüzler için ince çizgiler -->
+      <line x1="-96" y1="-46" x2="-96" y2="54" stroke="#5a6e7a" stroke-width="0.4" opacity="0.5" />
+      <line x1="96"  y1="-46" x2="96"  y2="54" stroke="#5a6e7a" stroke-width="0.4" opacity="0.5" />
+      <line x1="0"   y1="-128" x2="0" y2="128" stroke="#7a8c98" stroke-width="0.3" opacity="0.32" />
+
+      <!-- RÜH-ÇİZGİ — kristalin içinde tek ince damar -->
+      <path d="M -68 -28 Q -8 8 78 50"
+            fill="none" stroke="url(#ruhCizgi)" stroke-width="1.2" opacity="0.95" />
+
+      <!-- Rüh-çizginin küçük parıltısı -->
+      <circle cx="-8" cy="10" r="1.8" fill="#e8eef2" opacity="0.85" />
+      <circle cx="48" cy="34" r="1.2" fill="#c4d0d8" opacity="0.65" />
+    </g>
+  </g>
+
+  <!-- ═══════ AYIRACI ═══════ -->
+  <line x1="220" y1="640" x2="380" y2="640" stroke="#8c7a4a" stroke-width="0.4" opacity="0.55" />
+  <circle cx="300" cy="640" r="2.2" fill="#8c7a4a" opacity="0.6" />
+
+  <!-- ═══════ BAŞLIK ═══════ -->
+  <g font-family="Marcellus, 'Cormorant Garamond', serif" fill="#e0d8c0" text-anchor="middle">
+    <text x="300" y="700" font-size="56" letter-spacing="8" font-weight="500">TUZUN</text>
+    <text x="300" y="758" font-size="56" letter-spacing="8" font-weight="500">HAFIZASI</text>
+  </g>
+
+  <!-- Alt başlık -->
+  <g font-family="'Cormorant Garamond', 'EB Garamond', serif" fill="#a8b8c0" text-anchor="middle">
+    <text x="300" y="795" font-size="18" font-style="italic" letter-spacing="3" opacity="0.88">
+      bir kıyı romanı
+    </text>
+  </g>
+
+  <!-- ═══════ EPİGRAF ═══════ -->
+  <g font-family="'EB Garamond', serif" fill="#8a9aa4" text-anchor="middle">
+    <text x="300" y="836" font-size="11" font-style="italic" letter-spacing="2" opacity="0.7">
+      “Deniz bazen ölülerin sakladığını da geri verir.”
+    </text>
+  </g>
+</svg>

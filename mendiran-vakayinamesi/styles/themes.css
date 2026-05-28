@@ -1,0 +1,200 @@
+/* ════════════════════════════════════════════════════════════════
+   MENDÎRAN — Tema paleti
+   Üç ruh hali: gece (varsayılan), parşömen (gün ışığı), kül (soğuk-siyah)
+   Mythology projesinin değişken yapısıyla uyumludur; ama Mendîran’ın
+   daha karanlık-fantezi, mum-ışığı + sönmüş-mor kimliği için
+   tonlar değiştirildi.
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* Tipografi ölçeği — modüler, 1.25 oran, 16px ankraj */
+    --t-xs:    0.75rem;
+    --t-sm:    0.875rem;
+    --t-base:  1rem;
+    --t-md:    1.125rem;
+    --t-lg:    1.35rem;
+    --t-xl:    1.7rem;
+    --t-2xl:   2.15rem;
+    --t-3xl:   2.85rem;
+    --t-4xl:   3.75rem;
+    --t-5xl:   5rem;
+
+    /* Okuma alanı tipografi ölçeği (kullanıcı tercihiyle çarpılır) */
+    --reader-scale: 1;
+
+    /* Aralık ritmi */
+    --s-1: 0.25rem;
+    --s-2: 0.5rem;
+    --s-3: 0.75rem;
+    --s-4: 1rem;
+    --s-5: 1.5rem;
+    --s-6: 2rem;
+    --s-7: 3rem;
+    --s-8: 4.5rem;
+    --s-9: 6rem;
+
+    /* Animasyon eğrileri */
+    --ease-page:    cubic-bezier(0.6, 0.05, 0.3, 1);
+    --ease-veil:    cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-soft:    cubic-bezier(0.4, 0.1, 0.3, 1);
+
+    /* Süreler */
+    --d-page: 900ms;
+    --d-quick: 220ms;
+    --d-medium: 480ms;
+    --d-slow: 1100ms;
+}
+
+/* ─── GECE (varsayılan) — derin umber + mum ışığı + sönmüş mor iz ─── */
+[data-theme="gece"] {
+    --c-void:       #06040a;
+    --c-shadow:     #100b14;
+    --c-deep:       #1a1320;
+    --c-bark:       #2a1f2a;
+    --c-rust:       #3a2418;
+    --c-ember:      #8a4a1f;
+    --c-flame:      #b9682c;
+
+    --c-page:       #efe2c6;
+    --c-page-dim:   #e0cea8;
+    --c-page-edge:  #b8a072;
+    --c-page-fold:  #8a7548;
+    --c-vellum:     #f3e6c8;
+
+    --c-ink:        #1c1410;
+    --c-ink-soft:   #3a2a1d;
+    --c-ink-quote:  #5a3a1d;
+
+    --c-gold:       #b8923a;
+    --c-gold-soft:  #d4a85a;
+    --c-gold-bright:#e6c170;
+    --c-gold-deep:  #7a5a18;
+
+    --c-sigil:      #a8842c;
+    --c-rune:       #c69a40;
+    --c-blood:      #5c1e15;
+    --c-emerald:    #2a4a32;
+    --c-lapis:      #1c2a48;
+
+    --c-chrome-bg:  rgba(6, 4, 10, 0.82);
+    --c-chrome-fg:  #cab48a;
+    --c-chrome-fg-dim: #7a6a45;
+    --c-chrome-line: rgba(184, 146, 58, 0.22);
+
+    --bg-stage: radial-gradient(ellipse at center, #1a1018 0%, #0a0608 55%, #050204 100%);
+    --bg-vignette: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.85) 100%);
+
+    --shadow-book: 0 30px 60px -15px rgba(0,0,0,0.78), 0 12px 24px -6px rgba(0,0,0,0.55);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.18);
+    --glow-gold:   0 0 12px rgba(184, 146, 58, 0.3);
+}
+
+/* ─── PARŞÖMEN — gün ışığı okuma ─── */
+[data-theme="parsomen"] {
+    --c-void:       #d6c298;
+    --c-shadow:     #c0ad84;
+    --c-deep:       #a8966c;
+    --c-bark:       #847044;
+    --c-rust:       #654b28;
+    --c-ember:      #8a4a1f;
+    --c-flame:      #b35e26;
+
+    --c-page:       #f3e6c8;
+    --c-page-dim:   #e6d4ad;
+    --c-page-edge:  #b8a072;
+    --c-page-fold:  #8a7548;
+    --c-vellum:     #faecd2;
+
+    --c-ink:        #1c1410;
+    --c-ink-soft:   #3a2a1d;
+    --c-ink-quote:  #5a3a1d;
+
+    --c-gold:       #a8842c;
+    --c-gold-soft:  #b89a55;
+    --c-gold-bright:#c69a40;
+    --c-gold-deep:  #6a5018;
+
+    --c-sigil:      #8a6c2c;
+    --c-rune:       #a8843a;
+    --c-blood:      #5c1e15;
+    --c-emerald:    #2a4a32;
+    --c-lapis:      #1c2a48;
+
+    --c-chrome-bg:  rgba(243, 230, 200, 0.92);
+    --c-chrome-fg:  #3a2a1d;
+    --c-chrome-fg-dim: #7a6a45;
+    --c-chrome-line: rgba(106, 80, 24, 0.28);
+
+    --bg-stage: radial-gradient(ellipse at center, #ecdcb0 0%, #d4c08a 55%, #b09a64 100%);
+    --bg-vignette: radial-gradient(ellipse at center, transparent 35%, rgba(70,50,20,0.35) 100%);
+
+    --shadow-book: 0 28px 56px -16px rgba(60,40,15,0.42), 0 10px 20px -6px rgba(60,40,15,0.28);
+    --shadow-page: 0 2px 4px rgba(80,60,30,0.14);
+    --glow-gold:   0 0 12px rgba(168, 132, 44, 0.28);
+}
+
+/* ─── KÜL — soğuk siyah, ay ışığı ─── */
+[data-theme="kul"] {
+    --c-void:       #04050a;
+    --c-shadow:     #0a0d14;
+    --c-deep:       #11151e;
+    --c-bark:       #1a2030;
+    --c-rust:       #2a3548;
+    --c-ember:      #4a5a78;
+    --c-flame:      #7a8db0;
+
+    --c-page:       #d5d1c8;
+    --c-page-dim:   #b9b3a4;
+    --c-page-edge:  #88847a;
+    --c-page-fold:  #5e5a52;
+    --c-vellum:     #ddd9d0;
+
+    --c-ink:        #0c0e14;
+    --c-ink-soft:   #2a2d36;
+    --c-ink-quote:  #44485a;
+
+    --c-gold:       #8a9bb8;
+    --c-gold-soft:  #a4b4cc;
+    --c-gold-bright:#c8d4e6;
+    --c-gold-deep:  #4a5a78;
+
+    --c-sigil:      #6a7a98;
+    --c-rune:       #8aa0c0;
+    --c-blood:      #6a3030;
+    --c-emerald:    #3a6a52;
+    --c-lapis:      #2a4878;
+
+    --c-chrome-bg:  rgba(4, 5, 10, 0.85);
+    --c-chrome-fg:  #b8c4d8;
+    --c-chrome-fg-dim: #6a7488;
+    --c-chrome-line: rgba(138, 155, 184, 0.22);
+
+    --bg-stage: radial-gradient(ellipse at center, #0e1322 0%, #060810 55%, #02030608 100%);
+    --bg-vignette: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.85) 100%);
+
+    --shadow-book: 0 30px 60px -15px rgba(0,0,0,0.85), 0 12px 24px -6px rgba(0,0,0,0.6);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.22);
+    --glow-gold:   0 0 12px rgba(138, 155, 184, 0.28);
+}
+
+/* ─── HÂNE / KISIM AKSAN RENKLERİ ─── */
+:root {
+    --hane-naerath:    #b8923a;  /* sönmüş altın */
+    --hane-asmeyra:    #4a7a5a;  /* koyu yeşil */
+    --hane-korsend:    #b35e26;  /* kavurucu bakır */
+    --hane-brennvar:   #6a7a8a;  /* demir-soğuk */
+    --hane-velivar:    #2a4878;  /* deniz lacivertı */
+    --hane-vehdar:     #8a4a8a;  /* yer altı moru */
+    --hane-sahesh:     #a8843a;  /* çöl-kül sarısı */
+}
+
+/* Azaltılmış hareket */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --d-page: 0ms;
+        --d-quick: 0ms;
+        --d-medium: 0ms;
+        --d-slow: 0ms;
+    }
+}

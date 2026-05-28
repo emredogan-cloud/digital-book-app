@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="SARMAŞIK: Nazar — kapak: gözetim açıklığına dönüşmüş bir göz; merkezinde sistemin göremediği koyu bir boşluk.">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%">
+      <stop offset="0%" stop-color="#0e1d26"/>
+      <stop offset="48%" stop-color="#070d14"/>
+      <stop offset="100%" stop-color="#04070b"/>
+    </radialGradient>
+    <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0b141c"/>
+      <stop offset="62%" stop-color="#0a1620"/>
+      <stop offset="100%" stop-color="#15323a" stop-opacity="0.35"/>
+    </radialGradient>
+    <linearGradient id="thread" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2f5862" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#5fd0e2"/>
+      <stop offset="100%" stop-color="#2f5862" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="vign" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.55"/>
+      <stop offset="22%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="78%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.7"/>
+    </linearGradient>
+  </defs>
+
+  <!-- zemin -->
+  <rect width="600" height="900" fill="url(#bg)"/>
+
+  <!-- gözetim ızgarası (çok soluk tarama satırları) -->
+  <g stroke="#3a6b78" stroke-width="0.5" opacity="0.10">
+    <line x1="0" y1="120" x2="600" y2="120"/>
+    <line x1="0" y1="180" x2="600" y2="180"/>
+    <line x1="0" y1="240" x2="600" y2="240"/>
+    <line x1="0" y1="520" x2="600" y2="520"/>
+    <line x1="0" y1="560" x2="600" y2="560"/>
+    <line x1="60" y1="0" x2="60" y2="900"/>
+    <line x1="300" y1="0" x2="300" y2="900"/>
+    <line x1="540" y1="0" x2="540" y2="900"/>
+  </g>
+
+  <!-- sarmaşık — kenarlardan tırmanan ince damarlar -->
+  <g fill="none" stroke="#2f5b4e" stroke-width="1.2" opacity="0.30" stroke-linecap="round">
+    <path d="M8 900 C 40 760, 14 680, 56 600 C 92 536, 60 470, 96 410"/>
+    <path d="M56 600 q 26 -10 30 -34" stroke-width="0.9"/>
+    <path d="M96 410 q 24 -6 26 -30" stroke-width="0.9"/>
+    <path d="M592 900 C 560 770, 588 690, 548 612 C 514 548, 546 486, 510 426"/>
+    <path d="M548 612 q -26 -10 -30 -34" stroke-width="0.9"/>
+  </g>
+
+  <!-- göz / gözetim açıklığı -->
+  <g transform="translate(300 360)">
+    <!-- nazar / badem göz dış hattı -->
+    <path d="M -178 0 Q 0 -118 178 0 Q 0 118 -178 0 Z" fill="none" stroke="#5f8e9c" stroke-width="1.6" opacity="0.85"/>
+    <path d="M -150 0 Q 0 -96 150 0 Q 0 96 -150 0 Z" fill="none" stroke="#3a6b78" stroke-width="0.8" opacity="0.5"/>
+
+    <!-- iris parıltısı -->
+    <circle r="118" fill="url(#eyeGlow)"/>
+
+    <!-- aperture halkaları -->
+    <circle r="108" fill="none" stroke="#4a7b88" stroke-width="0.8" opacity="0.55"/>
+    <circle r="88"  fill="none" stroke="#5f8e9c" stroke-width="1" opacity="0.8"/>
+    <!-- kör nokta: bir halka kesik (boşluk) -->
+    <circle r="66" fill="none" stroke="#4fbcce" stroke-width="1.1" opacity="0.85" stroke-dasharray="300 84" transform="rotate(-32)"/>
+
+    <!-- aperture bıçakları (kamera diyaframı) -->
+    <g stroke="#82a8b4" stroke-width="1" opacity="0.55">
+      <line x1="0" y1="-88" x2="0" y2="-50"/>
+      <line x1="62" y1="-62" x2="35" y2="-35"/>
+      <line x1="88" y1="0" x2="50" y2="0"/>
+      <line x1="62" y1="62" x2="35" y2="35"/>
+      <line x1="0" y1="88" x2="0" y2="50"/>
+      <line x1="-62" y1="62" x2="-35" y2="35"/>
+      <line x1="-88" y1="0" x2="-50" y2="0"/>
+      <line x1="-62" y1="-62" x2="-35" y2="-35"/>
+    </g>
+
+    <!-- merkez boşluk — sistemin göremediği -->
+    <circle r="40" fill="#04070b" stroke="#aecdd5" stroke-width="0.7" opacity="0.9"/>
+    <circle r="40" fill="none" stroke="#5fd0e2" stroke-width="0.5" opacity="0.35"/>
+
+    <!-- sinyal damarı -->
+    <line x1="-188" y1="0" x2="188" y2="0" stroke="url(#thread)" stroke-width="1.1"/>
+    <circle cx="0" cy="0" r="2.2" fill="#5fd0e2"/>
+  </g>
+
+  <!-- başlık bloğu -->
+  <line x1="230" y1="566" x2="370" y2="566" stroke="#4fbcce" stroke-width="1" opacity="0.6"/>
+  <text x="300" y="606" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="25" letter-spacing="15" fill="#82a8b4">SARMAŞIK</text>
+  <text x="300" y="700" text-anchor="middle" font-family="'Cormorant Garamond', Marcellus, Georgia, serif" font-weight="600" font-size="96" letter-spacing="10" fill="#e7eaee">NAZAR</text>
+  <text x="300" y="742" text-anchor="middle" font-family="'IBM Plex Mono', 'Courier New', monospace" font-size="14.5" letter-spacing="4" fill="#6f8794">SARMAŞIK ÜÇLEMESİ · BİRİNCİ KİTAP</text>
+  <text x="300" y="826" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-style="italic" font-size="22" fill="#8fb0bb" opacity="0.9">Görülmek, işaretlenmektir.</text>
+
+  <!-- vinyet -->
+  <rect width="600" height="900" fill="url(#vign)"/>
+</svg>

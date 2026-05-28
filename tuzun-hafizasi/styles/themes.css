@@ -1,0 +1,229 @@
+/* ════════════════════════════════════════════════════════════════
+   TUZUN HAFIZASI — TEMA KATMANLARI
+   Üç ruh hâli: Tuzlu (varsayılan, kıyının kuru grisi-mavisi),
+                Kumlu (gündüz okuma, kireç ve tütün sarısı),
+                Gece-Deniz (gece okuma, lacivertin sessizliği).
+   Renk paleti Story Bible kanonundan: tuz beyazı, gemici mavisi,
+   tütün sarısı, paslı demir, kahverengi yas, soluk sarı kandil.
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* ────────── Yazı ölçeği (modular, 1.25) ────────── */
+    --t-xs:    0.75rem;
+    --t-sm:    0.875rem;
+    --t-base:  1rem;
+    --t-md:    1.125rem;
+    --t-lg:    1.35rem;
+    --t-xl:    1.7rem;
+    --t-2xl:   2.15rem;
+    --t-3xl:   2.85rem;
+    --t-4xl:   3.75rem;
+    --t-5xl:   5rem;
+
+    /* Okuma alanı yazı ölçeği (kullanıcı tercihiyle çarpılır) */
+    --reader-scale: 1;
+
+    /* Aralık ritmi */
+    --s-1: 0.25rem;
+    --s-2: 0.5rem;
+    --s-3: 0.75rem;
+    --s-4: 1rem;
+    --s-5: 1.5rem;
+    --s-6: 2rem;
+    --s-7: 3rem;
+    --s-8: 4.5rem;
+    --s-9: 6rem;
+
+    /* Hareket eğrileri — soluğu ölçen */
+    --ease-page:    cubic-bezier(0.6, 0.05, 0.3, 1);
+    --ease-veil:    cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-soft:    cubic-bezier(0.4, 0.1, 0.3, 1);
+
+    /* Süreler */
+    --d-page: 950ms;
+    --d-quick: 220ms;
+    --d-medium: 480ms;
+    --d-slow: 1100ms;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   TUZLU — Varsayılan. Sahil akşamı; kıyının kuru, tuzlu grisi;
+   paslı demir aksesuarlar; gemici mavisinin az miktarı. Restrained.
+   ════════════════════════════════════════════════════════════════ */
+[data-theme="tuzlu"] {
+    --c-void:       #0a1418;
+    --c-shadow:     #101c22;
+    --c-deep:       #18262e;
+    --c-bark:       #1f2d34;
+    --c-rust:       #2a2018;
+    --c-ember:      #4a3a28;
+    --c-flame:      #7a5a3a;
+
+    --c-page:       #ecebe2;      /* Tuz lekesi beyazı */
+    --c-page-dim:   #d8d4c4;
+    --c-page-edge:  #aaa492;
+    --c-page-fold:  #6e6852;
+    --c-vellum:     #f0eee4;
+
+    --c-ink:        #1a1e22;
+    --c-ink-soft:   #2c3138;
+    --c-ink-quote:  #4a3a28;     /* Tütün sarısı yazı */
+
+    /* "Altın" yerine "kandil" — kuru, sarımsı kahverengi */
+    --c-gold:       #8c7a4a;
+    --c-gold-soft:  #a89878;
+    --c-gold-bright:#c4b48a;
+    --c-gold-deep:  #5a4e30;
+
+    --c-sigil:      #6e7a82;      /* Gri-mavi */
+    --c-rune:       #8aa0aa;
+    --c-blood:      #7a3a28;      /* Pas */
+    --c-blood-soft: #9a5a48;
+    --c-bone:       #e0dccc;
+    --c-iron:       #4a5a64;      /* Gemici mavisi */
+    --c-emerald:    #3a4a3e;
+    --c-lapis:      #2a3a48;      /* Gece deniz */
+    --c-salt-thread:#8a98a4;      /* Rüh-çizgi rengi */
+
+    --c-chrome-bg:  rgba(10, 20, 24, 0.84);
+    --c-chrome-fg:  #c0b4a0;
+    --c-chrome-fg-dim: #7a6a52;
+    --c-chrome-line: rgba(140, 122, 74, 0.18);
+
+    --bg-stage:
+        radial-gradient(ellipse at center, #16232a 0%, #0a1418 60%, #050a0d 100%);
+    --bg-vignette:
+        radial-gradient(ellipse at center, transparent 32%, rgba(0,0,0,0.82) 100%);
+
+    --shadow-book:
+        0 32px 64px -18px rgba(0,0,0,0.85),
+        0 14px 26px -8px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(140, 122, 74, 0.08);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.18);
+    --glow-gold:   0 0 14px rgba(140, 122, 74, 0.22);
+
+    /* Üç akt için ayırt edici tonlar */
+    --act-bulma:     #6e7a82;
+    --act-iz-surme:  #8c7a4a;
+    --act-anilma:    #7a3a28;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   KUMLU — Gündüz okuma. Açık kireç ve tütün sarısı. Kapakla
+   görünen sahil ışığı. Daha sıcak ton ama hâlâ kuru.
+   ════════════════════════════════════════════════════════════════ */
+[data-theme="kumlu"] {
+    --c-void:       #e8e2d4;
+    --c-shadow:     #ddd4c2;
+    --c-deep:       #ccc0a8;
+    --c-bark:       #c0b498;
+    --c-rust:       #b09c78;
+    --c-ember:      #a08864;
+    --c-flame:      #8e7848;
+
+    --c-page:       #f4f0e2;
+    --c-page-dim:   #ebe5d2;
+    --c-page-edge:  #c4b894;
+    --c-page-fold:  #8a7a52;
+    --c-vellum:     #f8f4e6;
+
+    --c-ink:        #2a2418;
+    --c-ink-soft:   #3a3424;
+    --c-ink-quote:  #5a4824;
+
+    --c-gold:       #8c7a40;
+    --c-gold-soft:  #a08c54;
+    --c-gold-bright:#b8a268;
+    --c-gold-deep:  #5a4e20;
+
+    --c-sigil:      #6e6440;
+    --c-rune:       #8e7a48;
+    --c-blood:      #8a4828;
+    --c-blood-soft: #a86048;
+    --c-bone:       #e8e0c8;
+    --c-iron:       #6a7078;
+    --c-emerald:    #6a7858;
+    --c-lapis:      #4a5a68;
+    --c-salt-thread:#7a8088;
+
+    --c-chrome-bg:  rgba(232, 226, 212, 0.92);
+    --c-chrome-fg:  #3a3424;
+    --c-chrome-fg-dim: #786a48;
+    --c-chrome-line: rgba(58, 52, 36, 0.18);
+
+    --bg-stage:
+        radial-gradient(ellipse at center, #f0eadc 0%, #ddd4c2 60%, #c8bda4 100%);
+    --bg-vignette:
+        radial-gradient(ellipse at center, transparent 38%, rgba(160,140,100,0.32) 100%);
+
+    --shadow-book:
+        0 32px 64px -18px rgba(80, 60, 30, 0.32),
+        0 14px 26px -8px rgba(80, 60, 30, 0.22),
+        0 0 0 1px rgba(140, 122, 74, 0.14);
+    --shadow-page: 0 2px 4px rgba(80, 60, 30, 0.10);
+    --glow-gold:   0 0 14px rgba(140, 122, 74, 0.20);
+
+    --act-bulma:     #6e8088;
+    --act-iz-surme:  #8c7a40;
+    --act-anilma:    #8a4828;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   GECE-DENİZ — Gece okuma. Lacivert / lapis. Mum altı sessizliği.
+   ════════════════════════════════════════════════════════════════ */
+[data-theme="gece-deniz"] {
+    --c-void:       #050810;
+    --c-shadow:     #080d18;
+    --c-deep:       #0e1828;
+    --c-bark:       #142238;
+    --c-rust:       #1a2a3c;
+    --c-ember:      #2a3a52;
+    --c-flame:      #4a5a78;
+
+    --c-page:       #d4cea0;       /* Eski parşömen sarımsı */
+    --c-page-dim:   #c0b888;
+    --c-page-edge:  #8e8458;
+    --c-page-fold:  #4a4220;
+    --c-vellum:     #ddd6a8;
+
+    --c-ink:        #100c08;
+    --c-ink-soft:   #24180c;
+    --c-ink-quote:  #3a2c14;
+
+    --c-gold:       #b89c48;       /* Mum ışığı */
+    --c-gold-soft:  #c8ad60;
+    --c-gold-bright:#e0c478;
+    --c-gold-deep:  #7a6628;
+
+    --c-sigil:      #6a7e92;
+    --c-rune:       #8aa2b8;
+    --c-blood:      #5a2818;
+    --c-blood-soft: #7a3828;
+    --c-bone:       #d8d0a4;
+    --c-iron:       #1c2838;
+    --c-emerald:    #1a3028;
+    --c-lapis:      #1a2848;        /* Tema kalbi */
+    --c-salt-thread:#92a8b8;
+
+    --c-chrome-bg:  rgba(5, 8, 16, 0.90);
+    --c-chrome-fg:  #b8ac84;
+    --c-chrome-fg-dim: #6a6040;
+    --c-chrome-line: rgba(184, 156, 72, 0.18);
+
+    --bg-stage:
+        radial-gradient(ellipse at center, #142238 0%, #080d18 60%, #02040a 100%);
+    --bg-vignette:
+        radial-gradient(ellipse at center, transparent 28%, rgba(0,0,0,0.92) 100%);
+
+    --shadow-book:
+        0 32px 64px -18px rgba(0,0,0,0.90),
+        0 14px 26px -8px rgba(0,0,0,0.7),
+        0 0 0 1px rgba(184, 156, 72, 0.10);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.32);
+    --glow-gold:   0 0 18px rgba(184, 156, 72, 0.28);
+
+    --act-bulma:     #8aa2b8;
+    --act-iz-surme:  #b89c48;
+    --act-anilma:    #b85838;
+}

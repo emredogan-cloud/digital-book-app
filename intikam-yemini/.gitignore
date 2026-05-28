@@ -1,0 +1,20 @@
+# OS / editör
+.DS_Store
+Thumbs.db
+*~
+.idea/
+.vscode/
+
+# Loglar / geçici
+*.log
+*.tmp
+err.tmp
+
+# Bağımlılık / build (vanilla statik site; gerekmez ama güvenlik için)
+node_modules/
+.cache/
+
+# Vercel / ortam
+.vercel
+.env
+.env.*

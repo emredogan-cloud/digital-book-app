@@ -1,0 +1,21 @@
+# SARMAŞIK · NAZAR — Kapak Promptu 1/3 · SİNEMATİK ANA KAPAK (Kanonik Kimlik)
+
+> Görsel-üretim LLM'i için kapak adayı. Görsel **üretilmedi**, entegre **edilmedi**. Prompt Türkçe (asıl) + altında "EN (render-ready)". Üçleme tutarlılığı için bu, serinin **çekirdek kimlik** kapağıdır; II. (BOŞLUK) ve III. (KEFARET) kitaplar aynı dili sürdürür.
+
+## Kısa Görsel Yön Notu
+Bu bir neon-cyberpunk afişi **değildir**, jenerik aksiyon filmi posteri **değildir**. *Nazar*, yakın-gelecek bir **politik tekno-mit**: her şeyi gören bir gözetim devleti ve onun göremediği tek adam. Çekirdek imge: **gözetim açıklığına (kamera diyaframı/aperture) dönüşmüş bir göz — bir "nazar" — merkezinde, sistemin göremediği koyu bir boşluk.** Ton: **soğuk, ölçülü, prestijli, uğursuz**; sunucu ışığı + sodyum lambası + yağmur. Az nesne, güçlü tek odak, geniş negatif alan. Folk dehşeti (kötü göz) ile soğuk teknoloji buluşur — doğaüstü değil, tam da bu yüzden ürkütücü.
+
+## Önerilen Renk Ailesi (kanon paletten)
+Void siyahı `#05080c`–`#0f1620`; çelik-mavisi `#44586a`–`#5f8e9c`; **sinyal camgöbeği** `#4fbcce`–`#5fd0e2` (tek soğuk aksan); sodyum/şehir kehribarı `#c8923c` (tek sıcak karşı-aksan, uzak şehir ışıkları); kemik beyazı `#dde3e8` (başlık); alarm pası `#a23b30` (çok az, tek bir uyarı noktası). Düşük doygunluk, yüksek kontrast, soğuk taban.
+
+## Önerilen Kompozisyon Yönü
+Dikey **2:3**. Üst-orta üçlükte büyük, simetrik **göz/aperture** motifi; merkezinde mat-siyah boşluk (kör nokta). Alt üçlük: uzakta, sis ve yağmur içinde, gözetim kuleleri ve köprülerle bir **panoptikon metropolü** (İstanbul-dokulu sahil megakenti — boğaz, köprü silüetleri, kule+minare karışımı; soyut, okunaklı değil). Gözle şehir arasında çok küçük, sırtı dönük **tek bir insan silüeti** — kameranın "kör şeridi"nde, neredeyse görünmez (sistemin göremediği adam). Başlık için alt-orta bandında temiz negatif alan. İnce film granı, tarama satırı dokusu, hacimsel yağmur ışığı. **Metinsiz.**
+
+---
+
+### PROMPT (üretim)
+**TR:** Sinematik, prestijli yakın-gelecek tekno-gerilim roman kapağı, dikey 2:3. Kompozisyonun üst yarısında devasa, simetrik bir göz — ama göz bir gözetim kamerası diyaframına/aperture'a dönüşmüş: iç içe metalik halkalar, ince diyafram bıçakları, ve tam merkezde mat, ışık yutan kapkara bir boşluk (kör nokta). Gözün dış hattı badem biçimli, soğuk çelik-camgöbeği ince çizgi. Alt yarıda, ağır yağmur ve sis altında uzak bir gözetim metropolü: çelik kuleler, asma köprü silüetleri, su (boğaz) üzerinde titreşen soluk ışıklar — soyut, kalabalıksız. Şehirle göz arasında çok küçük, sırtı dönük yalnız bir insan figürü, neredeyse karanlığa karışmış. Palet: void-siyahı ve çelik-mavisi taban, tek soğuk camgöbeği sinyal aksanı, uzakta tek sıcak sodyum-kehribarı şehir ışığı parıltısı. Yüksek kontrast, düşük doygunluk, ince film granı, hafif tarama-satırı dokusu, hacimsel ışık. Alt-orta bandında başlık için temiz negatif boşluk. Soğuk, sessiz, tehditkâr, prestij sineması estetiği. Metinsiz, çarpık/bozuk metin yok, logo yok.
+**EN (render-ready):** Cinematic prestige near-future techno-thriller book cover, vertical 2:3. Upper half: a vast symmetrical eye that has become a surveillance-camera aperture — concentric metallic rings, fine diaphragm blades, and at the exact center a matte, light-swallowing pure-black void (a blind spot). Almond eye outline in cold steel-cyan thin line. Lower half: under heavy rain and mist, a distant surveillance metropolis — steel towers, suspension-bridge silhouettes, faint trembling lights over water (a strait); abstract, no crowds. Between the city and the eye, a very small lone human figure seen from behind, almost dissolving into the dark. Palette: void-black and steel-blue base, a single cold cyan signal accent, one distant warm sodium-amber city glow. High contrast, low saturation, fine film grain, subtle scan-line texture, volumetric light. Clean negative space in the lower-center band for the title. Cold, silent, menacing, prestige-cinema aesthetic. No text, no garbled lettering, no logo. --ar 2:3 --style raw
+
+### Kaçınılacaklar
+Neon-cyborg/cyberpunk klişesi · parlak doygun renkler · kalabalık · silah/aksiyon pozu · yüz yakın çekimi · çizgi-roman parlaklığı · bozuk/çarpık yazı · gerçek bir şehir/marka tanınır biçimde · gülen/dramatik insan yüzü · 3B-render plastik his.

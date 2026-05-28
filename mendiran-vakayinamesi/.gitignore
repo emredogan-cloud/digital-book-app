@@ -1,0 +1,28 @@
+# Mendîran Vakayinâmesi — .gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editörler
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs ve geçici
+*.log
+*.tmp
+.cache/
+
+# Node (eğer ileride build aracı eklenirse)
+node_modules/
+dist/
+build/
+.env
+.env.local
+
+# Sistem
+.history/

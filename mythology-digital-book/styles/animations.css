@@ -1,0 +1,204 @@
+/* ════════════════════════════════════════════════════════════════
+   ANIMATIONS — page turning, ambient motion, micro-interactions
+
+   PERFORMANCE NOTES
+   ─────────────────────────────────────────────────────────────
+   • Every infinite animation is gated by [data-perf="rich"] or by
+     prefers-reduced-motion. perf-lite mode runs ZERO infinite
+     animations and turns pages with an opacity crossfade only.
+   • Page-turn uses transform + opacity exclusively (compositor-only);
+     the curl shadow uses opacity, not box-shadow transitions.
+   • All keyframes operate on transform/opacity — no width/height/
+     left/top/box-shadow animations anywhere in the file.
+   • will-change is added by JS only during the turn and removed
+     immediately after, so we don't permanently keep extra GPU
+     layers around (each costs memory).
+   ════════════════════════════════════════════════════════════════ */
+
+/* ─── PAGE TURN MECHANICS (rich mode = 3D flip) ─── */
+
+.page--turning {
+    z-index: 60;
+    will-change: transform;
+}
+
+[data-perf="rich"] .page--right.page--turning {
+    transition: transform var(--d-page) var(--ease-page);
+    transform-origin: left center;
+}
+[data-perf="rich"] .page--left.page--turning {
+    transition: transform var(--d-page) var(--ease-page);
+    transform-origin: right center;
+}
+[data-perf="rich"] .page--right.page--turning.page--turn-forward {
+    transform: rotateY(-180deg);
+}
+[data-perf="rich"] .page--left.page--turning.page--turn-backward {
+    transform: rotateY(180deg);
+}
+
+/* ─── PAGE TURN MECHANICS (perf-lite mode = opacity crossfade) ───
+   Crossfade uses zero 3D math — much cheaper on weak GPUs.
+   Visually it feels like a page being slipped from a stack rather
+   than being physically flipped, but it stays smooth at 60fps
+   even on entry-level mobile. */
+
+[data-perf="lite"] .page--turning {
+    transition: opacity calc(var(--d-page) * 0.45) var(--ease-veil),
+                transform calc(var(--d-page) * 0.45) var(--ease-veil);
+    will-change: opacity, transform;
+}
+[data-perf="lite"] .page--turning.page--turn-forward {
+    opacity: 0;
+    transform: translate3d(-12px, 0, 0);
+}
+[data-perf="lite"] .page--turning.page--turn-backward {
+    opacity: 0;
+    transform: translate3d(12px, 0, 0);
+}
+
+/* ─── CURL SHADOW (rich only) ─── */
+
+.page__curl {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.28) 100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity calc(var(--d-page) * 0.5) var(--ease-soft);
+    z-index: 4;
+}
+[data-perf="rich"] .page--turning .page__curl { opacity: 1; }
+[data-perf="lite"] .page__curl { display: none; }
+
+/* Settled pages */
+.page--current { z-index: 10; }
+.page--reveal  { z-index: 1; }
+
+/* ─── ENTRANCE ANIMATIONS (one-shot, cheap) ─── */
+
+@keyframes page-rise {
+    from { opacity: 0; transform: translate3d(0, 12px, 0); }
+    to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.book.is-ready .page--current {
+    animation: page-rise 0.8s var(--ease-veil) backwards;
+}
+
+@keyframes book-open {
+    0%   { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1);    opacity: 1; }
+}
+body:not(.is-loading) .book {
+    /* PERF: dropped the rotateX(60deg) keyframe — 3D rotation on the whole
+       book at startup forces an expensive offscreen render. Plain scale-fade
+       feels nearly identical and stays compositor-only. */
+    animation: book-open 1.0s var(--ease-veil) both;
+}
+
+@keyframes text-fade-in {
+    from { opacity: 0; transform: translate3d(0, 4px, 0); }
+    to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.page--current .page__content {
+    animation: text-fade-in 0.45s var(--ease-veil) 0.12s both;
+}
+
+/* ─── DRAWER ENTRY ─── */
+
+.drawer[aria-hidden="false"] .drawer__entry {
+    animation: drawer-entry-rise 0.4s var(--ease-veil) backwards;
+}
+@keyframes drawer-entry-rise {
+    from { opacity: 0; transform: translate3d(-8px, 0, 0); }
+    to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+/* PERF: trimmed from 9 nth-child rules to a single CSS-variable trick
+   would be ideal but staggers on entries beyond 6 are barely visible —
+   the cap keeps the cascade short. */
+.drawer[aria-hidden="false"] .drawer__entry:nth-child(1) { animation-delay: 0.04s; }
+.drawer[aria-hidden="false"] .drawer__entry:nth-child(2) { animation-delay: 0.07s; }
+.drawer[aria-hidden="false"] .drawer__entry:nth-child(3) { animation-delay: 0.10s; }
+.drawer[aria-hidden="false"] .drawer__entry:nth-child(4) { animation-delay: 0.13s; }
+.drawer[aria-hidden="false"] .drawer__entry:nth-child(5) { animation-delay: 0.16s; }
+.drawer[aria-hidden="false"] .drawer__entry:nth-child(n+6) { animation-delay: 0.18s; }
+
+/* ─── INFINITE AMBIENT LOOPS (rich only) ───
+   Heavy: any of these costs paint per-frame even when the user isn't
+   interacting. Strictly opt-in through [data-perf="rich"]. */
+
+@keyframes nebula-drift {
+    0%   { transform: translate3d(0, 0, 0); }
+    50%  { transform: translate3d(2%, -1%, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+}
+[data-perf="rich"] .ambient__nebula {
+    animation: nebula-drift 90s ease-in-out infinite;
+}
+
+@keyframes dust-drift {
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-40px, 60px, 0); }
+}
+[data-perf="rich"] .ambient__dust {
+    animation: dust-drift 120s linear infinite alternate;
+}
+
+/* PERF: paused while tab is hidden (by JS via documentHidden class). */
+.is-doc-hidden .ambient__nebula,
+.is-doc-hidden .ambient__dust,
+.is-doc-hidden .loader__sigil {
+    animation-play-state: paused !important;
+}
+
+/* ─── LOADER MOTION ─── */
+
+@keyframes sigil-rotate { to { transform: rotate(360deg); } }
+@keyframes sigil-pulse {
+    0%, 100% { opacity: 0.85; }
+    50%      { opacity: 1; }
+}
+@keyframes sigil-rune-pulse {
+    0%, 100% { opacity: 0.4; }
+    50%      { opacity: 1; }
+}
+@keyframes text-flicker {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 0.95; }
+}
+
+/* ─── COVER GLOW (rich only) ─── */
+
+@keyframes cover-glow {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.04); }
+}
+[data-perf="rich"] .cover__crest {
+    animation: cover-glow 6s ease-in-out infinite;
+}
+
+/* ─── ILLUMINATED LETTER GLOW (rich only) ───
+   PERF: text-shadow animation forces a layer paint of every character
+   in the run — extremely costly when applied to the whole drop-cap on
+   every chapter. Now strictly an opt-in flourish. */
+
+@keyframes illuminated-glow {
+    0%, 100% { text-shadow: 0 0 0 rgba(122, 31, 31, 0); }
+    50%      { text-shadow: 0 0 18px rgba(122, 31, 31, 0.28); }
+}
+[data-perf="rich"] .story-body p:first-child::first-letter {
+    animation: illuminated-glow 5s ease-in-out infinite;
+}
+
+/* ─── REDUCED MOTION FALLBACK ───
+   Treats prefers-reduced-motion as the strictest mode: ZERO animations,
+   not even the page-flip transform. Page changes happen instantly. */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -1,0 +1,241 @@
+/* ════════════════════════════════════════════════════════════════
+   FABL — TEMA KATMANLARI · "Sabah Mavisi" ailesi
+   Üç ruh hâli, tek şafak:
+     Sabah  (varsayılan, gün ağarmadan önceki mavi saat; kâğıt parıldar)
+     Gündüz (aydınlık okuma; krem ve açık mavi-gri, ferah)
+     Alaca  (akşam okuması; lacivert dinginliği, parşömen)
+   Palet: solgun mavi-gri, krem sayfa, soluk altın, kiremit vurgu.
+   NOT: Tipografi ölçeği, aralık ritmi ve hareket eğrileri DEĞİŞMEZ —
+        biçim disiplini (format LOCK) korunur. Yalnızca renk/atmosfer.
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+    /* ────────── Yazı ölçeği (modular, 1.25) ────────── */
+    --t-xs:    0.75rem;
+    --t-sm:    0.875rem;
+    --t-base:  1rem;
+    --t-md:    1.125rem;
+    --t-lg:    1.35rem;
+    --t-xl:    1.7rem;
+    --t-2xl:   2.15rem;
+    --t-3xl:   2.85rem;
+    --t-4xl:   3.75rem;
+    --t-5xl:   5rem;
+
+    /* Okuma alanı yazı ölçeği (kullanıcı tercihiyle çarpılır) */
+    --reader-scale: 1;
+
+    /* Aralık ritmi */
+    --s-1: 0.25rem;
+    --s-2: 0.5rem;
+    --s-3: 0.75rem;
+    --s-4: 1rem;
+    --s-5: 1.5rem;
+    --s-6: 2rem;
+    --s-7: 3rem;
+    --s-8: 4.5rem;
+    --s-9: 6rem;
+
+    /* Hareket eğrileri — soluğu ölçen */
+    --ease-page:    cubic-bezier(0.6, 0.05, 0.3, 1);
+    --ease-veil:    cubic-bezier(0.2, 0.7, 0.2, 1);
+    --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-soft:    cubic-bezier(0.4, 0.1, 0.3, 1);
+
+    /* Süreler */
+    --d-page: 950ms;
+    --d-quick: 220ms;
+    --d-medium: 480ms;
+    --d-slow: 1100ms;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SABAH — Varsayılan. Gün ağarmadan önceki mavi saat. Sahne yumuşak
+   bir lacivert-gri; kitap, krem sayfalarıyla loşlukta parıldar.
+   Vurgular: soluk altın + kiremit. Sakin, dingin, "nefes alan".
+   ════════════════════════════════════════════════════════════════ */
+[data-theme="sabah"] {
+    --c-void:       #0e161d;
+    --c-shadow:     #131e26;
+    --c-deep:       #1a2832;
+    --c-bark:       #223240;
+    --c-rust:       #20262c;
+    --c-ember:      #3a4a52;
+    --c-flame:      #5a7280;
+
+    --c-page:       #f3efe3;      /* Krem sayfa */
+    --c-page-dim:   #e7e1d0;
+    --c-page-edge:  #cabf9f;
+    --c-page-fold:  #8a8068;
+    --c-vellum:     #f7f3e8;
+
+    --c-ink:        #26323b;      /* Mavi-kömür mürekkep */
+    --c-ink-soft:   #38454f;
+    --c-ink-quote:  #7a5947;      /* Sıcak sepya — alıntı/altbaşlık */
+
+    --c-gold:       #a4884c;      /* Soluk altın */
+    --c-gold-soft:  #b89c64;
+    --c-gold-bright:#cdb37c;
+    --c-gold-deep:  #6e5a30;
+
+    --c-sigil:      #6e8694;      /* Şafak mavisi-grisi */
+    --c-rune:       #8aa4b2;
+    --c-blood:      #b25c42;      /* Kiremit vurgu (iz şeridi) */
+    --c-blood-soft: #c47a60;
+    --c-bone:       #e6e0d0;
+    --c-iron:       #4a626e;
+    --c-emerald:    #41584e;
+    --c-lapis:      #233448;
+    --c-salt-thread:#90a6b2;
+
+    --c-chrome-bg:  rgba(14, 22, 29, 0.82);
+    --c-chrome-fg:  #c4cdd0;
+    --c-chrome-fg-dim: #7a8890;
+    --c-chrome-line: rgba(164, 136, 76, 0.18);
+
+    --bg-stage:
+        radial-gradient(ellipse at center, #1f3038 0%, #0e161d 60%, #070d12 100%);
+    --bg-vignette:
+        radial-gradient(ellipse at center, transparent 34%, rgba(0,0,0,0.78) 100%);
+
+    --shadow-book:
+        0 32px 64px -18px rgba(0,0,0,0.82),
+        0 14px 26px -8px rgba(0,0,0,0.58),
+        0 0 0 1px rgba(164, 136, 76, 0.08);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.18);
+    --glow-gold:   0 0 14px rgba(164, 136, 76, 0.22);
+
+    /* Üç küme için ayırt edici tonlar */
+    --act-kendilik:  #6e8694;
+    --act-birlikte:  #a4884c;
+    --act-yapmak:    #b25c42;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   GÜNDÜZ — Aydınlık okuma. Açık mavi-gri gökyüzü, krem sayfa.
+   Ferah, yüksek anahtarlı; "aydınlık fabl". Hâlâ ılık.
+   ════════════════════════════════════════════════════════════════ */
+[data-theme="gunduz"] {
+    --c-void:       #dde2e2;
+    --c-shadow:     #d2d8d8;
+    --c-deep:       #c2ccce;
+    --c-bark:       #b4c0c2;
+    --c-rust:       #b0a890;
+    --c-ember:      #9aa0a0;
+    --c-flame:      #7e8888;
+
+    --c-page:       #f6f2e8;
+    --c-page-dim:   #ece6d6;
+    --c-page-edge:  #cebf9c;
+    --c-page-fold:  #8a8068;
+    --c-vellum:     #faf6ec;
+
+    --c-ink:        #2a343a;
+    --c-ink-soft:   #3c4750;
+    --c-ink-quote:  #7a5340;
+
+    --c-gold:       #9c7e44;
+    --c-gold-soft:  #b09462;
+    --c-gold-bright:#c2a870;
+    --c-gold-deep:  #5e4c24;
+
+    --c-sigil:      #6a808c;
+    --c-rune:       #82989f;
+    --c-blood:      #b05a3e;
+    --c-blood-soft: #c07a5e;
+    --c-bone:       #ece6d4;
+    --c-iron:       #6a7c84;
+    --c-emerald:    #6a7a68;
+    --c-lapis:      #4a5e6c;
+    --c-salt-thread:#84a0a8;
+
+    --c-chrome-bg:  rgba(232, 236, 236, 0.92);
+    --c-chrome-fg:  #2e3a42;
+    --c-chrome-fg-dim: #6e7a80;
+    --c-chrome-line: rgba(70, 90, 100, 0.20);
+
+    --bg-stage:
+        radial-gradient(ellipse at center, #f0f1ec 0%, #d8dedc 58%, #c2cccd 100%);
+    --bg-vignette:
+        radial-gradient(ellipse at center, transparent 40%, rgba(110,130,140,0.26) 100%);
+
+    --shadow-book:
+        0 32px 64px -18px rgba(60, 80, 90, 0.30),
+        0 14px 26px -8px rgba(60, 80, 90, 0.20),
+        0 0 0 1px rgba(120, 135, 140, 0.14);
+    --shadow-page: 0 2px 4px rgba(60, 80, 90, 0.10);
+    --glow-gold:   0 0 14px rgba(156, 126, 68, 0.18);
+
+    --act-kendilik:  #5e7a88;
+    --act-birlikte:  #9c7e44;
+    --act-yapmak:    #b05a3e;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ALACA — Akşam okuması. Lacivert / lapis dinginliği, parşömen sayfa.
+   Mum altı bir sessizlik; ağır değil, yumuşak.
+   ════════════════════════════════════════════════════════════════ */
+[data-theme="alaca"] {
+    --c-void:       #070a14;
+    --c-shadow:     #0a0f1c;
+    --c-deep:       #101829;
+    --c-bark:       #16213a;
+    --c-rust:       #182238;
+    --c-ember:      #2a3852;
+    --c-flame:      #4a5e80;
+
+    --c-page:       #ded6bc;       /* Parşömen sarımsı */
+    --c-page-dim:   #cfc6a8;
+    --c-page-edge:  #9a8f66;
+    --c-page-fold:  #5a5238;
+    --c-vellum:     #e6ddc2;
+
+    --c-ink:        #14110c;
+    --c-ink-soft:   #2a2114;
+    --c-ink-quote:  #4a3826;
+
+    --c-gold:       #b89a54;        /* Mum ışığı */
+    --c-gold-soft:  #c8ab68;
+    --c-gold-bright:#dcc07e;
+    --c-gold-deep:  #7a6430;
+
+    --c-sigil:      #6e84a0;
+    --c-rune:       #8ca0be;
+    --c-blood:      #a85440;
+    --c-blood-soft: #bd6e54;
+    --c-bone:       #ddd4b8;
+    --c-iron:       #1e2c44;
+    --c-emerald:    #1c3026;
+    --c-lapis:      #1c2a4c;         /* Tema kalbi */
+    --c-salt-thread:#90a6be;
+
+    --c-chrome-bg:  rgba(7, 10, 20, 0.90);
+    --c-chrome-fg:  #c2b890;
+    --c-chrome-fg-dim: #6e6648;
+    --c-chrome-line: rgba(184, 154, 84, 0.18);
+
+    --bg-stage:
+        radial-gradient(ellipse at center, #16213a 0%, #0a0f1c 60%, #04060e 100%);
+    --bg-vignette:
+        radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.90) 100%);
+
+    --shadow-book:
+        0 32px 64px -18px rgba(0,0,0,0.90),
+        0 14px 26px -8px rgba(0,0,0,0.68),
+        0 0 0 1px rgba(184, 154, 84, 0.10);
+    --shadow-page: 0 2px 4px rgba(0,0,0,0.30);
+    --glow-gold:   0 0 18px rgba(184, 154, 84, 0.26);
+
+    --act-kendilik:  #8ca0be;
+    --act-birlikte:  #b89a54;
+    --act-yapmak:    #bd6e54;
+}
+
+/* ────────── Atmosfer yoğunluğu (yeni tema adlarına göre) ────────── */
+[data-theme="sabah"]  .ambient__sea  { opacity: 0.60; }
+[data-theme="gunduz"] .ambient__sea  { opacity: 0.30; }
+[data-theme="alaca"]  .ambient__sea  { opacity: 0.85; }
+
+[data-theme="sabah"]  .ambient__mist { opacity: 0.42; }
+[data-theme="gunduz"] .ambient__mist { opacity: 0.24; }
+[data-theme="alaca"]  .ambient__mist { opacity: 0.50; }
